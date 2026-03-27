@@ -359,8 +359,16 @@ a:hover {
   padding: var(--space-sm) var(--space-md);
   background: var(--color-bg-surface);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(74, 158, 255, 0.4);
+  border: 1px solid #C9A54E;
   margin-bottom: var(--space-md);
+}
+
+.getting-started-box.tour-complete {
+  border-color: var(--color-border);
+}
+
+.getting-started-box.tour-complete #getting-started-try {
+  color: var(--color-text) !important;
 }
 
 .getting-started-title {
@@ -477,6 +485,14 @@ details.getting-started-box[open] > .getting-started-title::before {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   overflow: hidden;
+}
+
+.accordion.tour-highlight-border {
+  border-color: #C9A54E;
+}
+
+.accordion.tour-highlight-border .accordion-label {
+  color: #C9A54E;
 }
 
 .accordion-header {
@@ -879,7 +895,7 @@ details.getting-started-box[open] > .getting-started-title::before {
 
 /* Inline Inputs (for APA write-up) */
 .inline-input {
-  width: 6ch;
+  width: 8ch;
   padding: var(--space-xs) var(--space-sm);
   font-family: var(--font-mono);
   font-size: var(--fs-sm);
@@ -913,9 +929,42 @@ details.getting-started-box[open] > .getting-started-title::before {
   max-width: 100px;
 }
 
+.inline-dropdown option {
+  color: #000000;
+  background: #ffffff;
+}
+
 .inline-dropdown.input-error {
   border: 2px solid var(--color-error-border);
   background: var(--color-error-bg);
+}
+
+#part-d-response .inline-input.input-error,
+#part-d-response .inline-dropdown.input-error {
+  border: 2px solid #C9A54E;
+  background: rgba(201, 165, 78, 0.1);
+}
+
+#part-d-response .inline-input:focus {
+  border: 2px solid #C9A54E;
+  outline: none;
+  box-shadow: 0 0 4px rgba(201, 165, 78, 0.4);
+}
+
+#part-d-response .inline-input.partd-active-target {
+  border: 2px solid #C9A54E;
+  box-shadow: 0 0 4px rgba(201, 165, 78, 0.4);
+}
+
+/* Make table cells clickable when Part D input is active */
+#partcd-group-stats td.numeric,
+#partcd-independent-test td.numeric {
+  cursor: pointer;
+}
+
+#partcd-group-stats td.numeric:hover,
+#partcd-independent-test td.numeric:hover {
+  background: rgba(201, 165, 78, 0.15);
 }
 
 
@@ -945,6 +994,21 @@ details.getting-started-box[open] > .getting-started-title::before {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
+}
+
+.tu-section {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.tu-section.tu-highlight {
+  border-color: #C9A54E;
+}
+
+.tu-section.tu-highlight > h4 {
+  color: #C9A54E;
 }
 
 .play-game-option {
@@ -1186,6 +1250,7 @@ details.pvalue-frequency-statement[open] > summary::before {
 .spss-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
   font-size: var(--fs-sm);
   background: var(--color-bg-elevated);
   border-top: 2px solid var(--color-text);
@@ -1615,7 +1680,10 @@ details.pvalue-frequency-statement[open] > summary::before {
         <details id="getting-started-details" class="getting-started-box" open>
           <summary class="getting-started-title">Getting Started</summary>
           <p class="getting-started-text">
-            The primary purpose of this app is to help you visualize scenarios whose probability (i.e., the p-value) is either very large or very small. For the researcher engaged in hypothesis testing, it is the low probability scenarios that are the most exciting. These low probability scenarios look just like a real treatment effect (i.e., the Treatment and Control groups are clearly different) &mdash; and yet they can occur entirely due to random selection and random assignment. When a researcher sees a p-value of .05 or less, it indicates that the Treatment and Control groups are so clearly different, that random selection and random assignment would rarely result in such an outcome. To see why researchers prefer low probability outcomes when deciding whether to reject the null hypothesis, click on each of the probabilities below &mdash; the app will automatically configure the scenario:
+            The primary purpose of this app is to help you visualize scenarios whose probability (i.e., the p-value) is either very large or very small. For the researcher engaged in hypothesis testing, it is the low probability scenarios that are the most exciting. These low probability scenarios look just like a real treatment effect (i.e., the Treatment and Control groups are clearly different) &mdash; and yet they can occur entirely due to random selection and random assignment. When a researcher sees a p-value of .05 or less, it indicates that the Treatment and Control groups are so clearly different, that random selection and random assignment would rarely result in such an outcome. To see why researchers prefer low probability outcomes when deciding whether to reject the null hypothesis, click on each of the probabilities below &mdash; the app will automatically configure the scenario.
+          </p>
+          <p id="getting-started-try" class="getting-started-text" style="color: #C9A54E; font-weight: 600; margin-top: 0.5em">
+            Try each of the scenarios (by clicking the link below):
           </p>
           <ul class="getting-started-presets">
             <li><button type="button" id="preset-p-high" class="preset-link"><em>p</em> = 1.00</button> (No treatment effect; the Treatment and Control group means are identical)</li>
@@ -1623,8 +1691,8 @@ details.pvalue-frequency-statement[open] > summary::before {
             <li id="preset-type1-item" style="display:none"><button type="button" id="preset-type1" class="preset-link">Type I Error</button> (Reject the null hypothesis, even though it is true)</li>
             <li id="preset-type2-item" style="display:none"><button type="button" id="preset-type2" class="preset-link">Type II Error</button> (Retain the null hypothesis, even though it is false)</li>
           </ul>
-          <p class="getting-started-text">
-            After checking out these scenarios, scroll down to the &lsquo;Scenario Controls&rsquo;, where you can move the p-value sliding bar (to see corresponding scenarios), select a treatment effect level (none, small, medium, or large), and adjust the sample size.
+          <p id="getting-started-followup" class="getting-started-text">
+            After checking out both scenarios, two additional options will appear below &mdash; Type I Error and Type II Error. At any time, scroll down to the &lsquo;Scenario Controls&rsquo;, where you can move the p-value sliding bar (to see corresponding scenarios), select a treatment effect level (none, small, medium, or large), and adjust the sample size.
           </p>
         </details>
         
@@ -1723,184 +1791,50 @@ details.pvalue-frequency-statement[open] > summary::before {
         <!-- Game Mode Header -->
         <header class="game-header">
           <h2 id="game-mode-header" class="game-title">
-            Apply Your Understanding: Practice Mode
+            Apply Your Understanding: Part C
           </h2>
         </header>
+
+        <!-- Exit Button -->
+        <div style="margin-bottom: var(--space-md)">
+          <button type="button" id="exit-parts-cd" class="btn btn-secondary">Return to the main app</button>
+        </div>
         
-        <!-- Instructions Accordion -->
-        <section id="instructions-accordion" class="accordion-section" aria-labelledby="instructions-heading">
+        <!-- Instructions (static section, not accordion) -->
+        <div id="partcd-instructions" style="margin-bottom: var(--space-md)">
+          <!-- Instructions content injected by initPartCD -->
+        </div>
+        
+        <!-- Figure 1 Accordion -->
+        <section id="figure1-accordion" class="accordion-section" aria-labelledby="figure1-heading">
           <!-- Accordion component will be injected here -->
         </section>
         
-        <!-- Mode Selector -->
-        <section id="mode-selector" class="section mode-selector-section" aria-labelledby="mode-selector-heading">
-          <h3 id="mode-selector-heading" class="mode-selector-label">Switch Between Application Modes:</h3>
-          <fieldset class="mode-selector-fieldset">
-            <legend class="sr-only">Game Mode Selection</legend>
-            <div class="radio-group radio-group-horizontal">
-              <label class="radio-label">
-                <input type="radio" name="mode-selector" value="tutorial">
-                <span class="radio-text">Tutorial (non-game mode)</span>
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="mode-selector" value="practice" checked>
-                <span class="radio-text">Practice (the focus is on the Hypothesis Decision Rule)</span>
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="mode-selector" value="fullgame">
-                <span class="radio-text">Full Game (Includes practice with writing up results APA style)</span>
-              </label>
-            </div>
-          </fieldset>
+        <!-- Group Statistics Accordion -->
+        <section id="group-stats-accordion" class="accordion-section" aria-labelledby="group-stats-heading">
+          <!-- Accordion component will be injected here -->
         </section>
         
-        <!-- Success Counter (Full Game only) -->
-        <div id="success-counter" class="success-counter hidden" aria-live="polite">
-          <span class="counter-label">Number of Scenarios (in Full Game Mode) Successfully Completed:</span>
-          <span id="success-count-value" class="counter-value">0</span>
+        <!-- Independent Samples Test Accordion -->
+        <section id="independent-test-accordion" class="accordion-section" aria-labelledby="independent-test-heading">
+          <!-- Accordion component will be injected here -->
+        </section>
+        
+        <!-- Part D Scenario Selector (between accordions and response) -->
+        <div id="partd-scenario-selector" class="hidden" style="margin-top: var(--space-lg); display: flex; align-items: center; gap: 0.75em; flex-wrap: wrap">
+          <!-- Built dynamically by initPartCD -->
         </div>
         
-        <!-- Section Divider -->
-        <hr class="section-divider" id="game-section-divider">
-        
-        <!-- Game Histograms (Treatment & Control only) -->
-        <section id="game-histograms" class="section game-histograms-section" aria-labelledby="game-histograms-heading">
-          <h3 id="game-histograms-heading" class="sr-only">Group Distributions</h3>
-          <div class="game-histograms-container">
-            <div class="histogram-placeholder">
-              <p>Treatment &amp; Control Group Histograms</p>
-              <p class="placeholder-note">(Will load with scenario)</p>
-            </div>
-          </div>
+        <!-- Part C Response Section -->
+        <section id="part-c-response" class="section" aria-labelledby="part-c-heading" style="margin-top: var(--space-lg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-md)">
+          <h3 id="part-c-heading" class="section-heading" style="font-size: var(--fs-base); font-weight: 600; margin-bottom: var(--space-sm); padding-bottom: 0; border-bottom: none">Select Scenario &amp; Record Response</h3>
+          <!-- Part C scenario buttons + dropdowns built dynamically -->
         </section>
         
-        <!-- SPSS Tables -->
-        <section id="game-tables" class="section game-tables-section" aria-labelledby="game-tables-heading">
-          <h3 id="game-tables-heading" class="sr-only">Statistical Output</h3>
-          <div class="spss-tables-wrapper">
-            <p class="placeholder-text">Statistical tables will appear here when a scenario is loaded.</p>
-          </div>
-        </section>
-        
-        <!-- User Input Section -->
-        <section id="user-input-section" class="section user-input-section" aria-labelledby="user-input-heading">
-          <h3 id="user-input-heading" class="section-heading">Your Response</h3>
-          
-          <!-- Practice Mode Input -->
-          <div id="practice-mode-input" class="practice-input-container">
-            <p class="practice-directions">Based on the scenario provided, apply the Hypothesis Decision Rule for a two-tailed independent samples t-test, with the alpha level set to .05.</p>
-            <label for="practice-decision-dropdown" class="decision-label">
-              The decision is to:
-            </label>
-            <select id="practice-decision-dropdown" class="dropdown dropdown-wide">
-              <option value="">-- Select your decision --</option>
-              <option value="retain">retain the null (the difference between the means is not statistically significant; the research hypothesis is not supported)</option>
-              <option value="reject">reject the null (the difference between means is statistically significant; the research hypothesis is supported)</option>
-            </select>
-          </div>
-          
-          <!-- Full Game Mode Input -->
-          <div id="fullgame-mode-input" class="fullgame-input-container hidden">
-            <p class="fullgame-directions">Complete the following APA style write-up. Report degrees of freedom (where the assumption of homogeneity of variance holds true) as a whole number. Round all other values to the hundredths place:</p>
-            
-            <div class="apa-writeup">
-              <p class="apa-sentence">
-                The difference between the Treatment group 
-                (<em>M</em> = <input type="text" id="fullgame-treatmentM" class="inline-input" maxlength="6" aria-label="Treatment group mean" placeholder="M">, 
-                <em>SD</em> = <input type="text" id="fullgame-treatmentS" class="inline-input" maxlength="6" aria-label="Treatment group standard deviation" placeholder="SD">) 
-                and the Control group 
-                (<em>M</em> = <input type="text" id="fullgame-controlM" class="inline-input" maxlength="6" aria-label="Control group mean" placeholder="M">, 
-                <em>SD</em> = <input type="text" id="fullgame-controlS" class="inline-input" maxlength="6" aria-label="Control group standard deviation" placeholder="SD">) 
-                is 
-                <select id="fullgame-significance" class="inline-dropdown" aria-label="Statistical significance">
-                  <option value="">--select--</option>
-                  <option value="significant">statistically significant</option>
-                  <option value="not_significant">not statistically significant</option>
-                </select>, 
-                <em>t</em>(<input type="text" id="fullgame-df" class="inline-input inline-input-small" maxlength="3" aria-label="Degrees of freedom" placeholder="df">) = 
-                <input type="text" id="fullgame-tValue" class="inline-input" maxlength="6" aria-label="t-value" placeholder="t">, 
-                <em>p</em> = <input type="text" id="fullgame-pValue" class="inline-input" maxlength="6" aria-label="p-value" placeholder="p"> 
-                (<select id="fullgame-pComparison" class="inline-dropdown inline-dropdown-narrow" aria-label="p-value comparison to alpha">
-                  <option value="">--</option>
-                  <option value="lte">p ≤ .05</option>
-                  <option value="gt">p > .05</option>
-                </select>), 
-                thus the null hypothesis is 
-                <select id="fullgame-nullHypothesis" class="inline-dropdown" aria-label="Null hypothesis decision">
-                  <option value="">--select--</option>
-                  <option value="retained">retained</option>
-                  <option value="rejected">rejected</option>
-                </select>. 
-                The research hypothesis 
-                <select id="fullgame-researchHypothesis" class="inline-dropdown inline-dropdown-narrow" aria-label="Research hypothesis support">
-                  <option value="">--</option>
-                  <option value="is">is</option>
-                  <option value="is_not">is not</option>
-                </select> 
-                supported.
-              </p>
-            </div>
-          </div>
-          
-          <!-- Submit Button -->
-          <div class="submit-container">
-            <button type="button" id="submit-answer-button" class="btn btn-primary">
-              Submit Answer
-            </button>
-          </div>
-        </section>
-        
-        <!-- Feedback Container -->
-        <div id="feedback-container" class="feedback-container hidden" role="alert" aria-live="polite">
-          <!-- Feedback will be injected here -->
-        </div>
-        
-        <!-- Results Explanation (Game Mode) -->
-        <section id="game-results-explanation" class="section results-explanation-section hidden" aria-labelledby="game-results-heading">
-          <h3 id="game-results-heading" class="section-heading">Answer Key</h3>
-          <div class="results-explanation-content">
-            <!-- Results explanation will be injected here -->
-          </div>
-        </section>
-        
-        <!-- Action Buttons -->
-        <div id="action-buttons" class="action-buttons hidden">
-          <button type="button" id="next-scenario-button" class="btn btn-secondary">
-            View next scenario
-          </button>
-          <button type="button" id="get-completion-code-button" class="btn btn-accent hidden">
-            Get Completion Code
-          </button>
-        </div>
-        
-        <!-- Completion Code Section -->
-        <section id="completion-code-section" class="section completion-section hidden" aria-labelledby="completion-heading">
-          <hr class="section-divider">
-          
-          <div class="completion-form">
-            <div class="form-group">
-              <label for="completion-name-input" class="form-label">Enter your first name:</label>
-              <input type="text" id="completion-name-input" class="form-input" maxlength="15" pattern="[a-zA-Z]+" aria-describedby="name-help">
-              <span id="name-help" class="form-help">Letters only, maximum 15 characters.</span>
-            </div>
-            
-            <div class="form-group">
-              <label for="completion-code-input" class="form-label">Enter the four digit user code:</label>
-              <input type="text" id="completion-code-input" class="form-input form-input-narrow" maxlength="4" pattern="\d{4}" inputmode="numeric" aria-describedby="code-help">
-              <span id="code-help" class="form-help">Enter exactly 4 digits.</span>
-            </div>
-            
-            <div class="completion-buttons">
-              <button type="button" id="completion-ok-button" class="btn btn-primary" disabled>OK</button>
-              <button type="button" id="completion-cancel-button" class="btn btn-secondary">Cancel</button>
-            </div>
-            
-            <div id="completion-code-display" class="completion-code-display hidden">
-              <span class="code-label">The Completion Code is:</span>
-              <span class="code-value" aria-live="polite"></span>
-            </div>
-          </div>
-          <hr class="section-divider">
+        <!-- Part D Response Section (hidden by default) -->
+        <section id="part-d-response" class="section hidden" aria-labelledby="part-d-heading" style="margin-top: var(--space-lg); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-md)">
+          <h3 id="part-d-heading" class="section-heading" style="font-size: var(--fs-base); font-weight: 600; margin-bottom: var(--space-sm); padding-bottom: 0; border-bottom: none">Write-up Results APA Style</h3>
+          <!-- Part D APA form built dynamically -->
         </section>
         
       </div><!-- End Game Mode Container -->
@@ -2008,8 +1942,8 @@ details.pvalue-frequency-statement[open] > summary::before {
       TUTORIAL_MODE: 'Tutorial (non-game mode)',
       PRACTICE_MODE: 'Practice (the focus is on the Hypothesis Decision Rule)',
       FULL_GAME_MODE: 'Full Game (Includes practice with writing up results APA style)',
-      PRACTICE_HEADER: 'Apply Your Understanding: Practice Mode',
-      FULL_GAME_HEADER: 'Apply Your Understanding: Full Game Mode',
+      PRACTICE_HEADER: 'Apply Your Understanding: Part C',
+      FULL_GAME_HEADER: 'Apply Your Understanding: Part D',
       POPULATION_HEADER: 'When the Null Hypothesis is True - No Treatment Effect',
       POPULATION_ACCORDION_NONE: 'The Reality',
       POPULATION_ACCORDION_SMALL: 'The Reality',
@@ -2195,7 +2129,10 @@ details.pvalue-frequency-statement[open] > summary::before {
       testUnderstanding: false,
       histogramExplanation: false,
       instructions: true,
-      appInfo: false
+      appInfo: false,
+      partcdFigure1: false,
+      partcdGroupStats: false,
+      partcdIndependentTest: false
     },
     tourState: {
       highClicked: false,
@@ -2203,9 +2140,35 @@ details.pvalue-frequency-statement[open] > summary::before {
       type1Clicked: false,
       type2Clicked: false,
       tourComplete: false,
-      activeTourStep: null
+      activeTourStep: null,
+      tourPhase: 'scenarios',        // 'scenarios' | 'controls' | 'results' | 'understanding' | 'complete'
+      tourFirstScenarioShown: false  // true after first scenario link text shown
     },
-    practiceDecision: null,
+    tuCompletion: {
+      partA: false,
+      partB: false,
+      partC: false,
+      partD: false
+    },
+    partCD: {
+      initialized: false,
+      subMode: 'C',
+      lastSubMode: 'C',
+      partC: {
+        scenarios: [],
+        activeScenario: null,
+        complete: false
+      },
+      partD: {
+        scenarios: [],
+        activeScenario: null,
+        scenario1Complete: false,
+        scenario2Complete: false,
+        savedInputs: { 0: {}, 1: {} }
+      },
+      continueToPartDVisible: false,
+      completionCodeVisible: false
+    },
     fullGameInputs: {
       treatmentM: '',
       treatmentS: '',
@@ -2268,7 +2231,7 @@ details.pvalue-frequency-statement[open] > summary::before {
   const getCurrentScenarioIndex = () => state.currentScenarioIndex;
 
   const setMode = (mode) => {
-    if (!['tutorial', 'practice', 'fullgame'].includes(mode)) return;
+    if (!['tutorial', 'partcd'].includes(mode)) return;
     const previousMode = state.currentMode;
     state.currentMode = mode;
     if (mode === 'tutorial' && previousMode !== 'tutorial') {
@@ -2334,6 +2297,50 @@ details.pvalue-frequency-statement[open] > summary::before {
   const setTourFlag = (flag) => { state.tourState[flag] = true; };
   const isTourComplete = () => state.tourState.tourComplete;
   const setTourComplete = () => { state.tourState.tourComplete = true; };
+  const getTourPhase = () => state.tourState.tourPhase;
+  const setTourPhase = (phase) => { state.tourState.tourPhase = phase; };
+  const isTourFirstScenarioShown = () => state.tourState.tourFirstScenarioShown;
+  const setTourFirstScenarioShown = () => { state.tourState.tourFirstScenarioShown = true; };
+
+  /**
+   * Revert all tour yellow highlights (borders + titles) and mark tour complete
+   */
+  const endTour = () => {
+    setTourPhase('complete');
+    setTourComplete();
+    // Remove all tour highlight borders
+    document.querySelectorAll('.tour-highlight-border').forEach(
+      el => el.classList.remove('tour-highlight-border')
+    );
+    // Revert Getting Started border
+    const gsBox = $('getting-started-details');
+    if (gsBox) gsBox.classList.add('tour-complete');
+  };
+
+  /**
+   * Handle tour phase transitions when manual controls are used
+   * (slider, treatment radio, sample size, random button)
+   */
+  const handleManualControlDuringTour = () => {
+    const phase = getTourPhase();
+    if (phase === 'complete') return;
+
+    if (phase === 'controls') {
+      // Phase 3: user used a control → revert Scenario Controls highlight
+      setTourPhase('results');
+      const scAccEl = document.getElementById('accordion-scenarioControls');
+      if (scAccEl) scAccEl.classList.remove('tour-highlight-border');
+      // Communicating Results keeps its highlight
+    } else if (phase === 'scenarios') {
+      // During scenario phase, manual controls just clear activeTourStep
+      // (borders handled in updateTutorialHistograms)
+    }
+  };
+
+  // Test Your Understanding completion tracking
+  const getTUCompletion = () => state.tuCompletion;
+  const setTUPartComplete = (part) => { state.tuCompletion[part] = true; };
+  const isTUAllComplete = () => state.tuCompletion.partA && state.tuCompletion.partB && state.tuCompletion.partC && state.tuCompletion.partD;
 
   const setPracticeDecision = (decision) => {
     state.practiceDecision = decision;
@@ -2599,7 +2606,7 @@ details.pvalue-frequency-statement[open] > summary::before {
   //   - Array ordered by p-value groups, with n=5, n=30, n=60 variants appearing together
   // ============================================
 
-  // This is where const SCENARIO_DATA =  is defined xxxxxxx
+  // xxxxxxx  Insert full dataset here  xxxxxxx
   // When DEVELOPMENT_MODE = false, SCENARIO_DATA should be defined here
   // When DEVELOPMENT_MODE = true, SCENARIO_DATA is not needed (uses MOCK_SCENARIOS)
 
@@ -4755,35 +4762,35 @@ details.pvalue-frequency-statement[open] > summary::before {
   // GUIDED TOUR PROMPT LOGIC
   // ============================================
   const TOUR_PROMPTS = {
-    HIGH: '<p style="margin-top:1em">Next, view the <button class="preset-link" onclick="window._tourAction(\'high\')"><em>p</em> = 1.000</button> example (No treatment effect; the Treatment and Control group means are identical).</p>',
-    LOW: '<p style="margin-top:1em">Next, view the <button class="preset-link" onclick="window._tourAction(\'low\')"><em>p</em> \u2264 0.000000001</button> example (Large treatment effect; the Treatment and Control groups are clearly distinct).</p>',
-    TYPE1: '<p style="margin-top:1em">Next, view a <button class="preset-link" onclick="window._tourAction(\'type1\')">Type I Error</button>. This is where random selection or random assignment leads to a convincing difference between the Treatment and Control group \u2014 resulting in the erroneous rejection of the null hypothesis.</p>',
-    TYPE2: '<p style="margin-top:1em">Next, view a <button class="preset-link" onclick="window._tourAction(\'type2\')">Type II Error</button>. This is where the treatment effect is real, but was so small as to not stand out as different from the outcome of random selection or random assignment. This would lead to incorrectly retaining the null hypothesis.</p>',
-    FINAL: (pStr, effect, n) => `<p style="margin-top:1em">Scroll below to the \u2018Communicating the Results APA Style\u2019 section. There you\u2019ll find the tables and graphs researchers use when analyzing experimental data, along with an example write-up following American Psychological Association (APA) style. These resources will reflect the current scenario (<em>p</em> = <strong>${pStr}</strong>, <strong>${effect}</strong>, <em>n</em> = <strong>${n}</strong>). At any time, use the controls below (p-value slider bar, modify the treatment effect, or change sample size) to modify the presented scenario.</p>`
+    HIGH: '<p style="margin-top:1em;margin-bottom:0.5em">Next, view the <button class="preset-link" onclick="window._tourAction(\'high\')"><em>p</em> = 1.000</button> example (No treatment effect; the Treatment and Control group means are identical).</p>',
+    LOW: '<p style="margin-top:1em;margin-bottom:0.5em">Next, view the <button class="preset-link" onclick="window._tourAction(\'low\')"><em>p</em> \u2264 0.000000001</button> example (Large treatment effect; the Treatment and Control groups are clearly distinct).</p>',
+    TYPE1: '<p style="margin-top:1em;margin-bottom:0.5em">Next, view a <button class="preset-link" onclick="window._tourAction(\'type1\')">Type I Error</button>. This is where random selection or random assignment leads to a convincing difference between the Treatment and Control group \u2014 resulting in the erroneous rejection of the null hypothesis.</p>',
+    TYPE2: '<p style="margin-top:1em;margin-bottom:0.5em">Next, view a <button class="preset-link" onclick="window._tourAction(\'type2\')">Type II Error</button>. This is where the treatment effect is real, but was so small as to not stand out as different from the outcome of random selection or random assignment. This would lead to incorrectly retaining the null hypothesis.</p>',
+    FINAL: '<p style="margin-top:1em;margin-bottom:0.5em">Use the scenario controls below to observe how changes to the scenario (p-value, treatment effect, and sample size) affect the above histograms and the communication of the results (displayed below).</p>'
   };
 
-  const getTourPrompt = (step, tourState, pStr, effect, n) => {
+  const getTourPrompt = (step, tourState) => {
     const { highClicked, lowClicked, type1Clicked, type2Clicked } = tourState;
 
     if (step === 'high') {
       if (!lowClicked) return TOUR_PROMPTS.LOW;
       if (!type1Clicked) return TOUR_PROMPTS.TYPE1;
       if (!type2Clicked) return TOUR_PROMPTS.TYPE2;
-      return TOUR_PROMPTS.FINAL(pStr, effect, n);
+      return TOUR_PROMPTS.FINAL;
     }
     if (step === 'low') {
       if (!highClicked) return TOUR_PROMPTS.HIGH;
       if (!type1Clicked) return TOUR_PROMPTS.TYPE1;
       if (!type2Clicked) return TOUR_PROMPTS.TYPE2;
-      return TOUR_PROMPTS.FINAL(pStr, effect, n);
+      return TOUR_PROMPTS.FINAL;
     }
     if (step === 'type1') {
       if (!type2Clicked) return TOUR_PROMPTS.TYPE2;
-      return TOUR_PROMPTS.FINAL(pStr, effect, n);
+      return TOUR_PROMPTS.FINAL;
     }
     if (step === 'type2') {
       if (!type1Clicked) return TOUR_PROMPTS.TYPE1;
-      return TOUR_PROMPTS.FINAL(pStr, effect, n);
+      return TOUR_PROMPTS.FINAL;
     }
     return null;
   };
@@ -5097,7 +5104,7 @@ details.pvalue-frequency-statement[open] > summary::before {
       const effect = getTreatmentEffect();
       const effectLabel = effect === 'none' ? 'none' : effect;
       const n = getSampleSize();
-      introEl.innerHTML = `Researchers in many different fields follow the American Psychological Association (APA) style for communicating results. The write-up below is for this scenario where the p-value is <strong>${pStr}</strong>, the treatment effect is <strong>${effectLabel}</strong>, and the sample size is <strong>${n}</strong>. These settings can be changed in the Scenario Controls.`;
+      introEl.innerHTML = `The graph and write-up below are for this scenario where the p-value is <strong>${pStr}</strong>, the treatment effect is <strong>${effectLabel}</strong>, and the sample size is <strong>${n}</strong>. These settings can be changed in the Scenario Controls.`;
     }
 
     // Update bar graph
@@ -5110,7 +5117,9 @@ details.pvalue-frequency-statement[open] > summary::before {
     const middleEl = $('results-middle-text');
     if (middleEl) {
       middleEl.style.marginTop = '1.5em';
-      middleEl.textContent = 'The bar graph above displays the difference between the Treatment and Control means. The statistical tables are used in writing up the APA style report and to decide whether to retain or reject the null hypothesis. Click on any value in the APA style write-up below to see where the information is displayed in the statistical tables. The decision of whether to retain or reject the null hypothesis is based on the Hypothesis Decision Rule \u2014 we reject the null hypothesis when the p-value is equal to or less than the alpha level of .05.';
+      middleEl.innerHTML = 'The bar graph displays the observed difference between the Treatment and Control means. Graphs like this one are often provided alongside the results.' +
+        '<p style="margin-top:0.5em">Below are statistical tables, typically generated with the aid of a statistical software package, and used when (1) deciding to retain or reject the null hypothesis and (2) writing up the results following the American Psychological Association (APA) style. Click on any value in the write-up to see where the information is displayed in the statistical tables.</p>' +
+        '<p style="margin-top:0.5em">The decision to reject or retain the null hypothesis is based solely upon the Hypothesis Decision Rule: The null hypothesis is rejected when the p-value is equal to or less than the alpha level (\u03B1 = .05).</p>';
     }
 
     // Update SPSS tables
@@ -5196,6 +5205,7 @@ details.pvalue-frequency-statement[open] > summary::before {
       // Dynamic accordion title based on guided tour step
       const activeTourForTitle = getActiveTourStep();
       let interpretingTitle = 'Interpreting the <em>p</em>-value (two-tailed test)';
+      const titleStyle = activeTourForTitle ? 'style="color: #C9A54E"' : '';
       if (activeTourForTitle === 'high') {
         interpretingTitle = 'Scenario Where <em>p</em> = 1.000 (Overlapping Means)';
       } else if (activeTourForTitle === 'low') {
@@ -5212,7 +5222,7 @@ details.pvalue-frequency-statement[open] > summary::before {
         <div id="control-histogram" class="histogram-svg-container"></div>
         <div id="sampling-distribution-histogram" class="histogram-svg-container"></div>
         <details id="pvalue-frequency-details" class="pvalue-frequency-statement" open>
-          <summary>${interpretingTitle}</summary>
+          <summary ${titleStyle}>${interpretingTitle}</summary>
           <p id="pvalue-frequency-text"></p>
         </details>
       `;
@@ -5296,13 +5306,29 @@ details.pvalue-frequency-statement[open] > summary::before {
         let fullText;
         const activeTour = getActiveTourStep();
 
+        // "You are now looking at..." intro — first scenario link only
+        let tourIntro = '';
+        if (activeTour && !isTourFirstScenarioShown()) {
+          const tourLabels = {
+            high: '<em>p</em> = <strong>1.000</strong>',
+            low: '<em>p</em> \u2264 <strong>0.000000001</strong>',
+            type1: 'a <strong>Type I Error</strong>',
+            type2: 'a <strong>Type II Error</strong>'
+          };
+          const label = tourLabels[activeTour];
+          if (label) {
+            tourIntro = `You are now looking at the scenario for ${label}. The histograms above illustrate the scenario.<br><br>`;
+            setTourFirstScenarioShown();
+          }
+        }
+
         if (activeTour === 'high') {
           // Guided tour: p = 1.000 — simplified pedagogical text
-          fullText = `This scenario illustrates what the graphs, tables, and APA style write-up look like when <em>p</em> = <strong>1.000</strong>. The key thing to notice is that the Treatment and the Control group means are identical \u2014 as shown by the overlapping mean lines in the histograms above. Why is <em>p</em> = <strong>1.000</strong>? Because we are always guaranteed a difference of zero or greater between the Treatment and Control means. This is also reflected in the Sampling Distribution, where <em>t</em> = 0.00 falls at the center of the curve \u2014 the point of maximum probability and minimum evidence against the null hypothesis.`;
+          fullText = `This scenario conveys what the graphs, tables, and APA style write-up look like when <em>p</em> = <strong>1.000</strong>. The key thing to notice is that the Treatment and the Control group means are identical \u2014 as shown by the overlapping mean lines in the histograms above. Why is <em>p</em> = <strong>1.000</strong>? Because we are always guaranteed a difference of zero or greater between the Treatment and Control means. This is also reflected in the Sampling Distribution, where <em>t</em> = 0.00 falls at the center of the curve \u2014 the point of maximum probability and minimum evidence against the null hypothesis.`;
 
         } else if (activeTour === 'low') {
           // Guided tour: p ≤ 0.000000001 — simplified pedagogical text
-          fullText = `This scenario illustrates what the graphs, tables, and APA style write-up look like when <em>p</em> \u2264 <strong>0.000000001</strong>. The most important characteristic to notice is that the Treatment and the Control group means are clearly different. With a large treatment effect and a sample size of 60, the difference between the groups is so large that it would almost never occur by chance alone. The p-value is so small that it is reported as <em>p</em> \u2264 <strong>0.000000001</strong>. This is also reflected in the Sampling Distribution, where the <em>t</em>-value falls far into the tail of the curve \u2014 the region of minimum probability and maximum evidence against the null hypothesis.`;
+          fullText = `This scenario conveys what the graphs, tables, and APA style write-up look like when <em>p</em> \u2264 <strong>0.000000001</strong>. The most important characteristic to notice is that the Treatment and the Control group means are clearly different. With a large treatment effect and a sample size of 60, the difference between the groups is so large that it would almost never occur by chance alone. The p-value is so small that it is reported as <em>p</em> \u2264 <strong>0.000000001</strong>. This is also reflected in the Sampling Distribution, where the <em>t</em>-value falls far into the tail of the curve \u2014 the region of minimum probability and maximum evidence against the null hypothesis.`;
 
         } else if (activeTour === 'type1') {
           // Type I Error: no real effect, but rejected
@@ -5319,13 +5345,13 @@ details.pvalue-frequency-statement[open] > summary::before {
           fullText = `When a difference is observed between the Treatment and the Control group, we may be tempted to claim it as support for a real treatment effect. But we also have to consider the probability of getting a difference of this size or larger simply due to pure chance (e.g., random selection, random assignment, etc.). A p-value of <strong>${pStr}</strong> means that, on the basis of chance alone, a difference of this size or larger between the Treatment and Control groups occurs ${frequencyPhrase} \u2014 ${rarityPhrase}. ${decisionPhrase} ${errorPhrase}`;
         }
 
+        // Prepend "You are now looking at..." for tour scenarios
+        if (tourIntro) fullText = tourIntro + fullText;
+
         // Tour prompt: append "Next" link if on guided tour
         if (activeTour && !isTourComplete()) {
           const ts = getTourState();
-          const tourPStr = formatPValuePrecise(pValue).replace(/0$/, '');
-          const tourEffect = getTreatmentEffect() === 'none' ? 'no treatment effect' : getTreatmentEffect() + ' treatment effect';
-          const tourN = getSampleSize();
-          const prompt = getTourPrompt(activeTour, ts, tourPStr, tourEffect, tourN);
+          const prompt = getTourPrompt(activeTour, ts);
           if (prompt) {
             fullText += prompt;
             // If this is the final message, mark tour complete
@@ -5340,6 +5366,25 @@ details.pvalue-frequency-statement[open] > summary::before {
         // Restore open/closed state
         detailsEl.open = wasDetailsOpen;
       }
+    }
+
+    // Manage tour highlight borders on accordions (only during scenarios phase)
+    const vizAccEl = document.getElementById('accordion-visualization');
+    const popAccEl = document.getElementById('accordion-population');
+    const activeTourBorder = getActiveTourStep();
+    const currentTourPhase = getTourPhase();
+    if (activeTourBorder && currentTourPhase === 'scenarios') {
+      // Visualization always highlighted during tour scenarios
+      if (vizAccEl) vizAccEl.classList.add('tour-highlight-border');
+      // Population only highlighted for Type I/II
+      if (popAccEl && (activeTourBorder === 'type1' || activeTourBorder === 'type2')) {
+        popAccEl.classList.add('tour-highlight-border');
+      } else if (popAccEl) {
+        popAccEl.classList.remove('tour-highlight-border');
+      }
+    } else {
+      if (vizAccEl) vizAccEl.classList.remove('tour-highlight-border');
+      if (popAccEl) popAccEl.classList.remove('tour-highlight-border');
     }
 
     // Update results accordion (SPSS tables, bar graph, APA write-up)
@@ -6088,6 +6133,214 @@ details.pvalue-frequency-statement[open] > summary::before {
     container.appendChild(tablesWrapper);
   };
 
+  /**
+   * Render empty Figure 1 bar graph (no scenario loaded)
+   */
+  const renderEmptyBarGraph = (container) => {
+    clearChildren(container);
+
+    const figureDiv = createElement('div', { className: 'apa-figure' });
+    figureDiv.style.textAlign = 'left';
+    figureDiv.style.maxWidth = '420px';
+    figureDiv.style.margin = '0';
+
+    const figNum = createElement('h4', { className: 'table-title' });
+    figNum.textContent = 'Figure 1';
+    figureDiv.appendChild(figNum);
+
+    const figTitle = createElement('p', {});
+    figTitle.style.margin = '0 0 8px 0';
+    figTitle.style.fontStyle = 'italic';
+    figTitle.style.textAlign = 'center';
+    figTitle.textContent = 'Comparison of Dependent Variable Across Groups';
+    figureDiv.appendChild(figTitle);
+
+    const figBox = createElement('div', {});
+    figBox.style.border = '1px solid var(--color-text)';
+    figBox.style.padding = '12px';
+    figBox.style.marginTop = '4px';
+    figBox.style.background = 'var(--color-bg-elevated)';
+
+    const W = 400, H = 280;
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('role', 'img');
+    svg.setAttribute('aria-label', 'Empty bar graph placeholder');
+    svg.style.width = '100%';
+    svg.style.maxWidth = '400px';
+    svg.style.display = 'block';
+
+    const bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    bg.setAttribute('width', W);
+    bg.setAttribute('height', H);
+    bg.setAttribute('fill', '#1a1a2e');
+    svg.appendChild(bg);
+
+    const placeholder = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    placeholder.setAttribute('x', W / 2);
+    placeholder.setAttribute('y', H / 2);
+    placeholder.setAttribute('text-anchor', 'middle');
+    placeholder.setAttribute('fill', '#aaaaaa');
+    placeholder.setAttribute('font-size', '18');
+    placeholder.setAttribute('font-family', 'sans-serif');
+    placeholder.textContent = 'Click a scenario button below to view the data';
+    svg.appendChild(placeholder);
+
+    figBox.appendChild(svg);
+
+    const figNote = createElement('p', {});
+    figNote.style.margin = '8px 0 0 0';
+    figNote.style.fontSize = 'var(--fs-sm)';
+    figNote.style.color = 'var(--color-text)';
+    figNote.innerHTML = '<em>Note.</em> Error bars represent \u00B11 standard error of the mean.';
+    figBox.appendChild(figNote);
+
+    figureDiv.appendChild(figBox);
+    container.appendChild(figureDiv);
+  };
+
+  /**
+   * Render empty SPSS tables (no scenario loaded, all cells show '--')
+   */
+  const renderEmptySPSSTables = (container) => {
+    clearChildren(container);
+    const tablesWrapper = createElement('div', { className: 'spss-tables-wrapper' });
+
+    // Group Statistics table with '--'
+    const gsWrapper = createElement('div', { className: 'table-wrapper' });
+    gsWrapper.appendChild(createElement('h4', { className: 'table-title' }, 'Group Statistics'));
+    const gsTable = createElement('table', { className: 'spss-table' });
+    const gsHead = createElement('thead', {});
+    const gsHR = createElement('tr', {});
+    ['', 'Group', 'N', 'Mean', 'Std. Deviation', 'Std. Error Mean'].forEach(h => {
+      const th = createElement('th', {});
+      if (h === 'N') { th.appendChild(createElement('em', {}, 'N')); } else { th.textContent = h; }
+      gsHR.appendChild(th);
+    });
+    gsHead.appendChild(gsHR);
+    gsTable.appendChild(gsHead);
+    const gsBody = createElement('tbody', {});
+    ['Treatment', 'Control'].forEach(group => {
+      const tr = createElement('tr', {});
+      tr.appendChild(createElement('td', {}, group === 'Treatment' ? 'Score' : ''));
+      tr.appendChild(createElement('td', {}, group));
+      for (let c = 0; c < 4; c++) tr.appendChild(createElement('td', { className: 'numeric' }, '--'));
+      gsBody.appendChild(tr);
+    });
+    gsTable.appendChild(gsBody);
+    gsWrapper.appendChild(gsTable);
+    tablesWrapper.appendChild(gsWrapper);
+
+    // Independent Samples Test table with '--'
+    const isWrapper = createElement('div', { className: 'table-wrapper' });
+    isWrapper.appendChild(createElement('h4', { className: 'table-title' }, 'Independent Samples Test'));
+    const isTable = createElement('table', { className: 'spss-table' });
+    const isHead = createElement('thead', {});
+    // Row 1
+    const isHR1 = createElement('tr', {});
+    isHR1.appendChild(createElement('th', { rowSpan: '3' }, ''));
+    isHR1.appendChild(createElement('th', { rowSpan: '3' }, ''));
+    const levTh = createElement('th', { colSpan: '2' });
+    levTh.textContent = "Levene's Test for Equality of Variances";
+    isHR1.appendChild(levTh);
+    isHR1.appendChild(createElement('th', { colSpan: '5' }, 't-test for Equality of Means'));
+    isHead.appendChild(isHR1);
+    // Row 2
+    const isHR2 = createElement('tr', {});
+    const fTh = createElement('th', {}); fTh.appendChild(createElement('em', {}, 'F')); isHR2.appendChild(fTh);
+    isHR2.appendChild(createElement('th', {}, 'Sig.'));
+    const tTh = createElement('th', {}); tTh.appendChild(createElement('em', {}, 't')); isHR2.appendChild(tTh);
+    isHR2.appendChild(createElement('th', {}, 'df'));
+    isHR2.appendChild(createElement('th', {}, 'Two-Sided p'));
+    isHR2.appendChild(createElement('th', {}, 'Mean Difference'));
+    isHR2.appendChild(createElement('th', {}, 'Std. Error Difference'));
+    isHead.appendChild(isHR2);
+    isTable.appendChild(isHead);
+    const isBody = createElement('tbody', {});
+    ['Equal variances assumed', 'Equal variances not assumed'].forEach(label => {
+      const tr = createElement('tr', {});
+      tr.appendChild(createElement('td', {}, label === 'Equal variances assumed' ? 'Score' : ''));
+      tr.appendChild(createElement('td', {}, label));
+      for (let c = 0; c < 7; c++) tr.appendChild(createElement('td', { className: 'numeric' }, '--'));
+      isBody.appendChild(tr);
+    });
+    isTable.appendChild(isBody);
+    isWrapper.appendChild(isTable);
+    tablesWrapper.appendChild(isWrapper);
+
+    container.appendChild(tablesWrapper);
+  };
+
+  /**
+   * Render empty Group Statistics table only (for Part C/D accordion)
+   */
+  const renderEmptyGroupStatsTable = (container) => {
+    const w = createElement('div', { className: 'spss-tables-wrapper' });
+    const wr = createElement('div', { className: 'table-wrapper' });
+    const gsTable = createElement('table', { className: 'spss-table' });
+    const gsHead = createElement('thead', {});
+    const gsHR = createElement('tr', {});
+    ['', 'Group', 'N', 'Mean', 'Std. Deviation', 'Std. Error Mean'].forEach(h => {
+      const th = createElement('th', {});
+      if (h === 'N') { th.appendChild(createElement('em', {}, 'N')); } else { th.textContent = h; }
+      gsHR.appendChild(th);
+    });
+    gsHead.appendChild(gsHR);
+    gsTable.appendChild(gsHead);
+    const gsBody = createElement('tbody', {});
+    ['Treatment', 'Control'].forEach(group => {
+      const tr = createElement('tr', {});
+      tr.appendChild(createElement('td', {}, group === 'Treatment' ? 'Score' : ''));
+      tr.appendChild(createElement('td', {}, group));
+      for (let c = 0; c < 4; c++) tr.appendChild(createElement('td', { className: 'numeric' }, '--'));
+      gsBody.appendChild(tr);
+    });
+    gsTable.appendChild(gsBody);
+    wr.appendChild(gsTable);
+    w.appendChild(wr);
+    container.appendChild(w);
+  };
+
+  /**
+   * Render empty Independent Samples Test table only (for Part C/D accordion)
+   */
+  const renderEmptyIndependentTable = (container) => {
+    const w = createElement('div', { className: 'spss-tables-wrapper' });
+    const wr = createElement('div', { className: 'table-wrapper' });
+    const isTable = createElement('table', { className: 'spss-table' });
+    const isHead = createElement('thead', {});
+    const isHR1 = createElement('tr', {});
+    isHR1.appendChild(createElement('th', { rowSpan: '3' }, ''));
+    isHR1.appendChild(createElement('th', { rowSpan: '3' }, ''));
+    const levTh = createElement('th', { colSpan: '2' });
+    levTh.textContent = "Levene's Test for Equality of Variances";
+    isHR1.appendChild(levTh);
+    isHR1.appendChild(createElement('th', { colSpan: '5' }, 't-test for Equality of Means'));
+    isHead.appendChild(isHR1);
+    const isHR2 = createElement('tr', {});
+    const fTh = createElement('th', {}); fTh.appendChild(createElement('em', {}, 'F')); isHR2.appendChild(fTh);
+    isHR2.appendChild(createElement('th', {}, 'Sig.'));
+    const tTh = createElement('th', {}); tTh.appendChild(createElement('em', {}, 't')); isHR2.appendChild(tTh);
+    isHR2.appendChild(createElement('th', {}, 'df'));
+    isHR2.appendChild(createElement('th', {}, 'Two-Sided p'));
+    isHR2.appendChild(createElement('th', {}, 'Mean Difference'));
+    isHR2.appendChild(createElement('th', {}, 'Std. Error Difference'));
+    isHead.appendChild(isHR2);
+    isTable.appendChild(isHead);
+    const isBody = createElement('tbody', {});
+    ['Equal variances assumed', 'Equal variances not assumed'].forEach(label => {
+      const tr = createElement('tr', {});
+      tr.appendChild(createElement('td', {}, label === 'Equal variances assumed' ? 'Score' : ''));
+      tr.appendChild(createElement('td', {}, label));
+      for (let c = 0; c < 7; c++) tr.appendChild(createElement('td', { className: 'numeric' }, '--'));
+      isBody.appendChild(tr);
+    });
+    isTable.appendChild(isBody);
+    wr.appendChild(isTable);
+    w.appendChild(wr);
+    container.appendChild(w);
+  };
+
   // ============================================
   // FEEDBACK
   // ============================================
@@ -6168,21 +6421,14 @@ details.pvalue-frequency-statement[open] > summary::before {
     GAME: {
       GAME_MODE_CONTAINER: 'game-mode-container',
       GAME_HEADER: 'game-mode-header',
-      INSTRUCTIONS_ACCORDION: 'instructions-accordion',
-      MODE_SELECTOR: 'mode-selector',
-      SUCCESS_COUNTER: 'success-counter',
-      HISTOGRAMS_CONTAINER: 'game-histograms',
-      TABLES_CONTAINER: 'game-tables',
-      USER_INPUT_SECTION: 'user-input-section',
-      PRACTICE_INPUT: 'practice-mode-input',
-      FULLGAME_INPUT: 'fullgame-mode-input',
-      SUBMIT_BUTTON: 'submit-answer-button',
-      FEEDBACK_CONTAINER: 'feedback-container',
-      RESULTS_EXPLANATION: 'game-results-explanation',
-      ACTION_BUTTONS: 'action-buttons',
-      NEXT_SCENARIO_BUTTON: 'next-scenario-button',
-      GET_CODE_BUTTON: 'get-completion-code-button',
-      COMPLETION_SECTION: 'completion-code-section'
+      EXIT_BUTTON: 'exit-parts-cd',
+      INSTRUCTIONS: 'partcd-instructions',
+      FIGURE1_ACCORDION: 'figure1-accordion',
+      GROUP_STATS_ACCORDION: 'group-stats-accordion',
+      INDEPENDENT_TEST_ACCORDION: 'independent-test-accordion',
+      PARTD_SCENARIO_SELECTOR: 'partd-scenario-selector',
+      PART_C_RESPONSE: 'part-c-response',
+      PART_D_RESPONSE: 'part-d-response'
     }
   };
 
@@ -6195,7 +6441,7 @@ details.pvalue-frequency-statement[open] > summary::before {
     if (gameContainer) hide(gameContainer);
   };
 
-  const showGameMode = (subMode, enteringFromTutorial = false) => {
+  const showPartCDMode = (enteringFromTutorial = false) => {
     Object.values(SECTIONS.TUTORIAL).forEach(id => {
       const el = $(id);
       if (el) hide(el);
@@ -6210,95 +6456,111 @@ details.pvalue-frequency-statement[open] > summary::before {
       gameContainer.setAttribute('aria-hidden', 'false');
     }
 
-    updateGameHeader(subMode);
-
-    if (subMode === 'practice') {
-      showPracticeModeElements();
-    } else {
-      showFullGameModeElements();
+    // Initialize Part C/D if first time
+    if (!state.partCD.initialized) {
+      initPartCD();
+      state.partCD.initialized = true;
     }
 
-    if (enteringFromTutorial) {
-      const instructionsOpen = shouldInstructionsBeOpen();
-      setAccordionState('instructions', instructionsOpen);
-    }
+    // Show the correct sub-mode
+    setPartCDSubMode(state.partCD.lastSubMode || 'C');
 
     if (gameContainer) {
       scrollIntoView(gameContainer, { behavior: 'instant', block: 'start' });
     }
   };
 
-  const updateGameHeader = (subMode) => {
+  const setPartCDSubMode = (subMode) => {
+    const prevSubMode = state.partCD.subMode;
+
+    // Save Part D form inputs when leaving Part D
+    if (prevSubMode === 'D' && subMode !== 'D') {
+      const idx = state.partCD.partD.activeScenario;
+      if (idx !== null) {
+        const saved = {};
+        ['treatmentM', 'treatmentS', 'controlM', 'controlS', 'df', 't', 'p'].forEach(f => {
+          const el = $(`partd-${f}`); if (el) saved[f] = el.value;
+        });
+        ['significance', 'pComparison', 'nullDecision', 'supported'].forEach(f => {
+          const el = $(`partd-${f}`); if (el) saved[f] = el.value;
+        });
+        state.partCD.partD.savedInputs[idx] = saved;
+      }
+    }
+
+    state.partCD.subMode = subMode;
+    state.partCD.lastSubMode = subMode;
+
+    // Update header
     const header = $(SECTIONS.GAME.GAME_HEADER);
     if (header) {
       const headerText = header.querySelector('h2');
       if (headerText) {
-        headerText.textContent = subMode === 'practice' 
-          ? CONFIG.LABELS.PRACTICE_HEADER 
+        headerText.textContent = subMode === 'C'
+          ? CONFIG.LABELS.PRACTICE_HEADER
           : CONFIG.LABELS.FULL_GAME_HEADER;
       }
     }
-  };
 
-  const showPracticeModeElements = () => {
-    const practiceInput = $(SECTIONS.GAME.PRACTICE_INPUT);
-    const fullGameInput = $(SECTIONS.GAME.FULLGAME_INPUT);
-    if (practiceInput) show(practiceInput);
-    if (fullGameInput) hide(fullGameInput);
-    const counter = $(SECTIONS.GAME.SUCCESS_COUNTER);
-    if (counter) hide(counter);
-    updateModeSelector('practice');
-    const getCodeButton = $(SECTIONS.GAME.GET_CODE_BUTTON);
-    if (getCodeButton) hide(getCodeButton);
-  };
+    // Toggle response sections and scenario selector
+    const partCResp = $(SECTIONS.GAME.PART_C_RESPONSE);
+    const partDResp = $(SECTIONS.GAME.PART_D_RESPONSE);
+    const scenSelector = $(SECTIONS.GAME.PARTD_SCENARIO_SELECTOR);
+    if (partCResp) { subMode === 'C' ? show(partCResp) : hide(partCResp); }
+    if (partDResp) { subMode === 'D' ? show(partDResp) : hide(partDResp); }
+    if (scenSelector) { subMode === 'D' ? show(scenSelector) : hide(scenSelector); }
 
-  const showFullGameModeElements = () => {
-    const practiceInput = $(SECTIONS.GAME.PRACTICE_INPUT);
-    const fullGameInput = $(SECTIONS.GAME.FULLGAME_INPUT);
-    if (practiceInput) hide(practiceInput);
-    if (fullGameInput) show(fullGameInput);
-    const counter = $(SECTIONS.GAME.SUCCESS_COUNTER);
-    if (counter) show(counter);
-    updateModeSelector('fullgame');
-    updateSuccessCounterDisplay();
-    updateCompletionCodeButton();
-  };
-
-  const updateModeSelector = (mode) => {
-    const radios = document.querySelectorAll('input[name="mode-selector"]');
-    radios.forEach(radio => {
-      radio.checked = radio.value === mode;
-    });
-  };
-
-  const updateSuccessCounterDisplay = () => {
-    const countEl = $('success-count-value');
-    if (countEl) {
-      countEl.textContent = getSuccessCounter().toString();
+    // Swap instructions
+    const instrContainer = $(SECTIONS.GAME.INSTRUCTIONS);
+    if (instrContainer) {
+      instrContainer.innerHTML = subMode === 'C' ? getPartCInstructions() : getPartDInstructions();
     }
-  };
 
-  const updateCompletionCodeButton = () => {
-    const button = $(SECTIONS.GAME.GET_CODE_BUTTON);
-    if (!button) return;
-    const count = getSuccessCounter();
-    const alreadyGenerated = isCompletionCodeGenerated();
-    const currentMode = getMode();
-    if (currentMode === 'fullgame' && count >= CONFIG.GAME.SUCCESS_THRESHOLD && !alreadyGenerated) {
-      show(button);
+    // Restore Figure 1 + tables for the active sub-mode's last scenario
+    const figContainer = $('partcd-figure1');
+    const gsContainer = $('partcd-group-stats');
+    const isContainer = $('partcd-independent-test');
+    const partState = subMode === 'C' ? state.partCD.partC : state.partCD.partD;
+
+    if (partState.activeScenario !== null) {
+      const scen = partState.scenarios[partState.activeScenario];
+      if (scen && scen._loadedScenario) {
+        if (figContainer) renderBarGraph(figContainer, scen._loadedScenario);
+        if (gsContainer) {
+          clearChildren(gsContainer);
+          const w = createElement('div', { className: 'spss-tables-wrapper' });
+          const wr = createElement('div', { className: 'table-wrapper' });
+          wr.appendChild(createGroupStatsTable(scen._loadedScenario));
+          w.appendChild(wr);
+          gsContainer.appendChild(w);
+        }
+        if (isContainer) {
+          clearChildren(isContainer);
+          const w = createElement('div', { className: 'spss-tables-wrapper' });
+          const wr = createElement('div', { className: 'table-wrapper' });
+          wr.appendChild(createIndependentSamplesTable(scen._loadedScenario));
+          w.appendChild(wr);
+          isContainer.appendChild(w);
+        }
+      } else {
+        if (figContainer) renderEmptyBarGraph(figContainer);
+        if (gsContainer) { clearChildren(gsContainer); renderEmptyGroupStatsTable(gsContainer); }
+        if (isContainer) { clearChildren(isContainer); renderEmptyIndependentTable(isContainer); }
+      }
     } else {
-      hide(button);
+      if (figContainer) renderEmptyBarGraph(figContainer);
+      if (gsContainer) { clearChildren(gsContainer); renderEmptyGroupStatsTable(gsContainer); }
+      if (isContainer) { clearChildren(isContainer); renderEmptyIndependentTable(isContainer); }
     }
   };
 
-  const switchMode = (newMode, options = {}) => {
-    const { generateScenario = true } = options;
+  const switchMode = (newMode) => {
     const currentMode = getMode();
     if (currentMode === newMode) return;
-    const enteringGameFromTutorial = currentMode === 'tutorial' && newMode !== 'tutorial';
-    setActiveTourStep(null); // Clear tour prompt on mode switch
+    const enteringFromTutorial = currentMode === 'tutorial' && newMode === 'partcd';
+    setActiveTourStep(null);
+    if (getTourPhase() !== 'complete') endTour();
     setMode(newMode);
-    resetUserInputs();
     if (newMode === 'tutorial') {
       showTutorialMode();
       // Reset treatment effect to none
@@ -6307,21 +6569,16 @@ details.pvalue-frequency-statement[open] > summary::before {
       treatmentRadios.forEach(radio => {
         radio.checked = (radio.value === 'none');
       });
-      // Sync sample size dropdown with state
       const sampleSizeDropdown = $('sample-size-dropdown');
       if (sampleSizeDropdown) {
         sampleSizeDropdown.value = getSampleSize();
       }
-      // Generate default scenario and reset slider (one call syncs all state)
       const scenario = getScenarioByPValue(CONFIG.P_VALUE.DEFAULT, getSampleSize());
       setCurrentScenario(scenario);
       updateTutorialHistograms(scenario);
       if (sliderModule) sliderModule.resetToDefault();
-    } else {
-      showGameMode(newMode, enteringGameFromTutorial);
-      if (generateScenario) {
-        loadNewScenario();
-      }
+    } else if (newMode === 'partcd') {
+      showPartCDMode(enteringFromTutorial);
     }
   };
 
@@ -6350,8 +6607,8 @@ details.pvalue-frequency-statement[open] > summary::before {
     const initialMode = getMode();
     if (initialMode === 'tutorial') {
       showTutorialMode();
-    } else {
-      showGameMode(initialMode);
+    } else if (initialMode === 'partcd') {
+      showPartCDMode();
     }
   };
 
@@ -6403,15 +6660,15 @@ details.pvalue-frequency-statement[open] > summary::before {
     </div>
   `;
 
-  const getInstructionsContent = () => `
+  const getPartCInstructions = () => `
     <div class="instructions-content">
-      <p>Welcome to the 'Hypothesis Decision Rule & Write-up Game' section. You begin in 'Practice Mode', where you make decisions on whether to retain or reject the null hypothesis. For each scenario you will see:</p>
-      <ul>
-        <li>a histogram for the Treatment and the Control group, and</li>
-        <li>a table displaying the results of the Independent Samples t-Test.</li>
-      </ul>
-      <p>Following each of your decisions, you will receive immediate feedback. Once you are comfortable with when to retain or reject the null hypothesis, switch to 'Full Game' mode. In addition to the Hypothesis Decision Rule (to retain or reject the null), the full game mode includes how to write up the results APA style.</p>
-      <p>This app is all about having fun, making mistakes, and thereby learning all the more as a result. In the full game mode, once you successfully complete 5 scenarios, an optional 'Completion Code' is made available (e.g., for presentation to your course instructor). Your count of successfully completed scenarios will persist until you close the app. Explore, and have fun!</p>
+      <p>In Part C, you take on the role of a researcher, looking at the data analysis, and deciding whether to retain or reject the null hypothesis. The test being conducted is a two-tailed independent samples t test. You will be applying the Hypothesis Decision Rule: Reject the null hypothesis when the p-value is equal to or less than the alpha level (\u03B1 = .05). Once you successfully determine whether to retain or reject the null hypothesis for all four scenarios, you will be able to move on to Part D, which focuses on the experience of writing up the results APA Style.</p>
+    </div>
+  `;
+
+  const getPartDInstructions = () => `
+    <div class="instructions-content">
+      <p>In Part D, you practice writing up the results following the American Psychological Association (APA) style. For each scenario, complete the APA style write-up by filling in the values from the statistical tables and selecting the appropriate decisions. Report degrees of freedom as a whole number and round all other values to the hundredths place. Once both of the scenarios are successfully completed, an optional completion code will be made available.</p>
     </div>
   `;
 
@@ -6458,24 +6715,673 @@ details.pvalue-frequency-statement[open] > summary::before {
           const effect = randomEffect();
           const targetP = 0.01 + Math.random() * 0.03; // 0.01–0.04
           const slider = findSliderForTreatmentP(targetP, 30, effect);
-          return { effect, n: 30, slider, answer: 'Correct decision (Reject the null hypothesis)', outcome };
+          return { effect, n: 30, slider, pValue: targetP, answer: 'Correct decision (Reject the null hypothesis)', outcome };
         }
         case 'correctRetain': {
           const targetP = 0.15 + Math.random() * 0.65; // 0.15–0.80
-          return { effect: 'none', n: 30, slider: targetP, answer: 'Correct decision (Retain the null hypothesis)', outcome };
+          return { effect: 'none', n: 30, slider: targetP, pValue: targetP, answer: 'Correct decision (Retain the null hypothesis)', outcome };
         }
         case 'type1Error': {
           const targetP = 0.01 + Math.random() * 0.03; // 0.01–0.04
-          return { effect: 'none', n: 30, slider: targetP, answer: 'Type I Error', outcome };
+          return { effect: 'none', n: 30, slider: targetP, pValue: targetP, answer: 'Type I Error', outcome };
         }
         case 'type2Error': {
           const effect = randomEffect();
           const targetP = 0.08 + Math.random() * 0.32; // 0.08–0.40
           const slider = findSliderForTreatmentP(targetP, 30, effect);
-          return { effect, n: 30, slider, answer: 'Type II Error', outcome };
+          return { effect, n: 30, slider, pValue: targetP, answer: 'Type II Error', outcome };
         }
       }
     });
+  };
+
+  // ============================================
+  // PART C — GAME SCENARIO GENERATION
+  // ============================================
+
+  const generatePartCGameScenarios = () => {
+    let decisions = [0, 1, 2, 3].map(() => Math.random() < 0.5 ? 'reject' : 'retain');
+    // Guarantee at least one of each
+    if (decisions.every(d => d === 'reject') || decisions.every(d => d === 'retain')) {
+      decisions[Math.floor(Math.random() * 4)] = decisions[0] === 'reject' ? 'retain' : 'reject';
+    }
+    return decisions.map(decision => {
+      if (decision === 'reject') {
+        const p = [0.01, 0.02, 0.03, 0.04, 0.05][Math.floor(Math.random() * 5)];
+        return { effect: 'none', n: 30, slider: p, answer: 'Reject the null hypothesis', decision };
+      } else {
+        const p = (Math.floor(Math.random() * 95) + 6) / 100;
+        return { effect: 'none', n: 30, slider: p, answer: 'Retain the null hypothesis', decision };
+      }
+    });
+  };
+
+  const generatePartDScenarios = () => {
+    const decisions = Math.random() < 0.5 ? ['reject', 'retain'] : ['retain', 'reject'];
+    return decisions.map(decision => {
+      if (decision === 'reject') {
+        const p = [0.01, 0.02, 0.03, 0.04, 0.05][Math.floor(Math.random() * 5)];
+        return { effect: 'none', n: 30, slider: p, decision };
+      } else {
+        const p = (Math.floor(Math.random() * 95) + 6) / 100;
+        return { effect: 'none', n: 30, slider: p, decision };
+      }
+    });
+  };
+
+  // ============================================
+  // INIT PART C/D — BUILDS UI INTO GAME CONTAINER
+  // ============================================
+
+  const initPartCD = () => {
+    const instrContainer = $(SECTIONS.GAME.INSTRUCTIONS);
+    const fig1Container = $(SECTIONS.GAME.FIGURE1_ACCORDION);
+    const gsAccContainer = $(SECTIONS.GAME.GROUP_STATS_ACCORDION);
+    const isAccContainer = $(SECTIONS.GAME.INDEPENDENT_TEST_ACCORDION);
+    const partCResp = $(SECTIONS.GAME.PART_C_RESPONSE);
+    const partDResp = $(SECTIONS.GAME.PART_D_RESPONSE);
+
+    // ── Static Instructions ──
+    if (instrContainer) {
+      clearChildren(instrContainer);
+      instrContainer.innerHTML = getPartCInstructions();
+    }
+
+    // ── Figure 1 Accordion ──
+    if (fig1Container) {
+      const figDiv = createElement('div', { id: 'partcd-figure1' });
+      accordions.partcdFigure1 = new Accordion({
+        id: 'partcdFigure1',
+        label: 'Figure 1',
+        content: figDiv,
+        defaultOpen: false,
+        container: fig1Container
+      });
+      renderEmptyBarGraph(figDiv);
+    }
+
+    // ── Group Statistics Accordion ──
+    if (gsAccContainer) {
+      const gsDiv = createElement('div', { id: 'partcd-group-stats' });
+      accordions.partcdGroupStats = new Accordion({
+        id: 'partcdGroupStats',
+        label: 'Group Statistics',
+        content: gsDiv,
+        defaultOpen: false,
+        container: gsAccContainer
+      });
+      renderEmptyGroupStatsTable(gsDiv);
+    }
+
+    // ── Independent Samples Test Accordion ──
+    if (isAccContainer) {
+      const isDiv = createElement('div', { id: 'partcd-independent-test' });
+      accordions.partcdIndependentTest = new Accordion({
+        id: 'partcdIndependentTest',
+        label: 'Independent Samples Test',
+        content: isDiv,
+        defaultOpen: false,
+        container: isAccContainer
+      });
+      renderEmptyIndependentTable(isDiv);
+    }
+
+    // Generate initial Part C scenarios
+    state.partCD.partC.scenarios = generatePartCGameScenarios();
+
+    // Helpers: get containers inside accordions
+    const getFigContainer = () => $('partcd-figure1');
+    const getGSContainer = () => $('partcd-group-stats');
+    const getISContainer = () => $('partcd-independent-test');
+
+    // Helper: load scenario into all three displays
+    const loadScenarioIntoDisplays = (scenarioObj) => {
+      const fc = getFigContainer();
+      const gc = getGSContainer();
+      const ic = getISContainer();
+      if (fc) renderBarGraph(fc, scenarioObj);
+      if (gc) {
+        clearChildren(gc);
+        const w = createElement('div', { className: 'spss-tables-wrapper' });
+        const wr = createElement('div', { className: 'table-wrapper' });
+        wr.appendChild(createGroupStatsTable(scenarioObj));
+        w.appendChild(wr);
+        gc.appendChild(w);
+      }
+      if (ic) {
+        clearChildren(ic);
+        const w = createElement('div', { className: 'spss-tables-wrapper' });
+        const wr = createElement('div', { className: 'table-wrapper' });
+        wr.appendChild(createIndependentSamplesTable(scenarioObj));
+        w.appendChild(wr);
+        ic.appendChild(w);
+      }
+    };
+
+    // Helper: open all three data accordions and scroll to Figure 1
+    const openDataAccordions = () => {
+      if (accordions.partcdFigure1) { accordions.partcdFigure1.open(); setAccordionState('partcdFigure1', true); }
+      if (accordions.partcdGroupStats) { accordions.partcdGroupStats.open(); setAccordionState('partcdGroupStats', true); }
+      if (accordions.partcdIndependentTest) { accordions.partcdIndependentTest.open(); setAccordionState('partcdIndependentTest', true); }
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const accEl = document.getElementById('accordion-partcdFigure1');
+          if (accEl) {
+            const top = accEl.getBoundingClientRect().top + window.scrollY - 10;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        });
+      });
+    };
+
+    // Helper: reset all three displays to empty
+    const resetDisplaysToEmpty = () => {
+      const fc = getFigContainer();
+      const gc = getGSContainer();
+      const ic = getISContainer();
+      if (fc) renderEmptyBarGraph(fc);
+      if (gc) { clearChildren(gc); renderEmptyGroupStatsTable(gc); }
+      if (ic) { clearChildren(ic); renderEmptyIndependentTable(ic); }
+    };
+
+    // ══════════════════════════════
+    // PART C RESPONSE UI
+    // ══════════════════════════════
+    if (partCResp) {
+      clearChildren(partCResp);
+      const heading = createElement('h3', { className: 'section-heading', style: 'font-size: var(--fs-base); font-weight: 600; margin-bottom: var(--space-sm); padding-bottom: 0; border-bottom: none' });
+      heading.textContent = 'Select Scenario & Record Response';
+      partCResp.appendChild(heading);
+
+      const subtitle = createElement('p', { style: 'margin-bottom: 1em' });
+      subtitle.textContent = 'Decide whether to retain or reject the null hypothesis, for a two-tailed independent samples t-test with alpha set to .05.';
+      partCResp.appendChild(subtitle);
+
+      const partCOptions = ['-- select --', 'Retain the null hypothesis', 'Reject the null hypothesis'];
+
+      for (let i = 0; i < 4; i++) {
+        const rowDiv = createElement('div', {
+          id: `partc-row-${i}`,
+          style: 'margin-bottom: 0.75em; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5em'
+        });
+        const scenBtn = createElement('button', {
+          type: 'button', className: 'btn btn-secondary',
+          id: `partc-scenario-btn-${i}`,
+          style: 'display: inline-block; min-width: 7em; text-align: center'
+        }, `Scenario ${i + 1}`);
+        scenBtn.addEventListener('click', () => {
+          const scen = state.partCD.partC.scenarios[i];
+          if (!scen) return;
+          const scenarioObj = getScenarioByPValue(scen.slider, 30);
+          scen._loadedScenario = scenarioObj;
+          state.partCD.partC.activeScenario = i;
+          loadScenarioIntoDisplays(scenarioObj);
+          openDataAccordions();
+        });
+        rowDiv.appendChild(scenBtn);
+
+        const label = createElement('span', { style: 'margin-right: 0.25em' });
+        label.textContent = `${i + 1}. The decision is to:`;
+        rowDiv.appendChild(label);
+
+        const select = createElement('select', {
+          id: `partc-q${i}`, className: 'inline-dropdown',
+          'aria-label': `Scenario ${i + 1} decision`
+        });
+        partCOptions.forEach(opt => {
+          const option = createElement('option', { value: opt === '-- select --' ? '' : opt });
+          option.textContent = opt;
+          select.appendChild(option);
+        });
+        rowDiv.appendChild(select);
+        partCResp.appendChild(rowDiv);
+      }
+
+      const partCScore = createElement('p', { id: 'partc-score', style: 'margin-top: 1em; font-weight: 600; display: none' });
+      partCResp.appendChild(partCScore);
+
+      const submitDiv = createElement('div', { style: 'margin-top: 1.25em' });
+      const submitCBtn = createElement('button', { type: 'button', className: 'btn btn-primary', id: 'partc-submit-btn' }, 'Submit Your Answers');
+
+      submitCBtn.addEventListener('click', () => {
+        if (submitCBtn.textContent === 'Play Again') {
+          state.partCD.partC.scenarios = generatePartCGameScenarios();
+          state.partCD.partC.activeScenario = null;
+          for (let i = 0; i < 4; i++) {
+            const sel = $(`partc-q${i}`); const row = $(`partc-row-${i}`); const btn = $(`partc-scenario-btn-${i}`);
+            if (sel) { sel.value = ''; sel.style.display = ''; }
+            if (row) { const locked = row.querySelector('.tu-locked-answer'); if (locked) locked.remove(); }
+            if (btn) { btn.style.display = ''; btn.textContent = `Scenario ${i + 1}`; }
+          }
+          submitCBtn.textContent = 'Submit Your Answers';
+          partCScore.textContent = 'A new set of Scenarios 1\u20134 are ready for you to evaluate.';
+          partCScore.style.display = 'block';
+          resetDisplaysToEmpty();
+          return;
+        }
+        let allAnswered = true;
+        for (let i = 0; i < 4; i++) { const sel = $(`partc-q${i}`); if (!sel || !sel.value) { allAnswered = false; break; } }
+        if (!allAnswered) {
+          partCScore.textContent = "First, select your responses for all four scenarios. Then click the 'Submit Your Answers' button.";
+          partCScore.style.display = 'block';
+          return;
+        }
+        let correct = 0;
+        const scenarios = state.partCD.partC.scenarios;
+        for (let i = 0; i < 4; i++) { const sel = $(`partc-q${i}`); if (sel && sel.value === scenarios[i].answer) correct++; }
+        partCScore.textContent = `You have ${correct} of the 4 answers in Part C correct.`;
+        partCScore.style.display = 'block';
+        if (correct === 4) {
+          state.partCD.partC.complete = true;
+          setTUPartComplete('partC');
+          for (let i = 0; i < 4; i++) {
+            const row = $(`partc-row-${i}`); const sel = $(`partc-q${i}`);
+            if (row && sel) {
+              sel.style.display = 'none';
+              const lockedLabel = createElement('span', { className: 'tu-locked-answer', style: 'font-weight: 600' });
+              lockedLabel.textContent = scenarios[i].answer;
+              row.appendChild(lockedLabel);
+            }
+          }
+          submitCBtn.textContent = 'Play Again';
+        }
+      });
+      submitDiv.appendChild(submitCBtn);
+      partCResp.appendChild(submitDiv);
+
+      const viewPartDBtn = createElement('button', {
+        type: 'button', className: 'btn btn-primary',
+        id: 'partc-continue-btn', style: 'margin-top: var(--space-md)'
+      }, 'View Part D');
+      viewPartDBtn.addEventListener('click', () => setPartCDSubMode('D'));
+      partCResp.appendChild(viewPartDBtn);
+    }
+
+    // ══════════════════════════════
+    // PART D RESPONSE UI
+    // ══════════════════════════════
+    if (partDResp) {
+      clearChildren(partDResp);
+      const heading = createElement('h3', { className: 'section-heading', style: 'font-size: var(--fs-base); font-weight: 600; margin-bottom: var(--space-sm); padding-bottom: 0; border-bottom: none' });
+      heading.textContent = 'Write-up Results APA Style';
+      partDResp.appendChild(heading);
+
+      state.partCD.partD.scenarios = generatePartDScenarios();
+
+      const partDFields = {
+        numeric: ['treatmentM', 'treatmentS', 'controlM', 'controlS', 'df', 't', 'p'],
+        dropdowns: ['significance', 'pComparison', 'nullDecision', 'supported']
+      };
+
+      const savePartDInputs = (index) => {
+        const saved = {};
+        partDFields.numeric.forEach(f => { const el = $(`partd-${f}`); if (el) saved[f] = el.value; });
+        partDFields.dropdowns.forEach(f => { const el = $(`partd-${f}`); if (el) saved[f] = el.value; });
+        state.partCD.partD.savedInputs[index] = saved;
+      };
+      const restorePartDInputs = (index) => {
+        const saved = state.partCD.partD.savedInputs[index] || {};
+        partDFields.numeric.forEach(f => { const el = $(`partd-${f}`); if (el) el.value = saved[f] || ''; });
+        partDFields.dropdowns.forEach(f => { const el = $(`partd-${f}`); if (el) el.value = saved[f] || ''; });
+        document.querySelectorAll('#part-d-response .input-error').forEach(el => el.classList.remove('input-error'));
+      };
+
+      // APA Write-up Form (above scenario buttons)
+      const apaFormDiv = createElement('div', { style: 'margin-bottom: 0' });
+      apaFormDiv.innerHTML = `
+        <p class="apa-sentence">
+          The difference between the Treatment group
+          (<em>M</em> = <input type="text" id="partd-treatmentM" class="inline-input" maxlength="6" aria-label="Treatment group mean" placeholder="M">,
+          <em>SD</em> = <input type="text" id="partd-treatmentS" class="inline-input" maxlength="6" aria-label="Treatment group SD" placeholder="SD">)
+          and the Control group
+          (<em>M</em> = <input type="text" id="partd-controlM" class="inline-input" maxlength="6" aria-label="Control group mean" placeholder="M">,
+          <em>SD</em> = <input type="text" id="partd-controlS" class="inline-input" maxlength="6" aria-label="Control group SD" placeholder="SD">)
+          is
+          <select id="partd-significance" class="inline-dropdown" aria-label="Statistical significance">
+            <option value="">--select--</option>
+            <option value="significant">statistically significant</option>
+            <option value="not-significant">not statistically significant</option>
+          </select>,
+          <em>t</em>(<input type="text" id="partd-df" class="inline-input inline-input-small" maxlength="3" aria-label="Degrees of freedom" placeholder="df">) =
+          <input type="text" id="partd-t" class="inline-input" maxlength="6" aria-label="t-value" placeholder="t">,
+          <em>p</em> = <input type="text" id="partd-p" class="inline-input" maxlength="6" aria-label="p-value" placeholder="p">
+          (<select id="partd-pComparison" class="inline-dropdown inline-dropdown-narrow" aria-label="p-value comparison to alpha">
+            <option value="">--</option>
+            <option value="lte">p \u2264 .05</option>
+            <option value="gt">p > .05</option>
+          </select>),
+          thus the null hypothesis is
+          <select id="partd-nullDecision" class="inline-dropdown" aria-label="Null hypothesis decision">
+            <option value="">--select--</option>
+            <option value="retained">retained</option>
+            <option value="rejected">rejected</option>
+          </select>.
+          The research hypothesis
+          <select id="partd-supported" class="inline-dropdown inline-dropdown-narrow" aria-label="Research hypothesis support">
+            <option value="">--</option>
+            <option value="is">is</option>
+            <option value="is-not">is not</option>
+          </select>
+          supported.
+        </p>
+      `;
+      // Wrap APA form + error + submit in a single styled container
+      const apaWrapper = createElement('div', { className: 'apa-writeup' });
+      apaWrapper.appendChild(apaFormDiv);
+
+      // ── Click-to-fill: click table cell → copies value to active APA input ──
+      const partDInputOrder = ['partd-treatmentM', 'partd-treatmentS', 'partd-controlM', 'partd-controlS', 'partd-df', 'partd-t', 'partd-p'];
+      let activePartDInput = null;
+
+      // Track which text input is active (event delegation — works before DOM append)
+      apaFormDiv.addEventListener('focusin', (e) => {
+        const input = e.target;
+        if (input.tagName !== 'INPUT' || !partDInputOrder.includes(input.id)) return;
+        if (activePartDInput && activePartDInput !== input) {
+          activePartDInput.classList.remove('partd-active-target');
+        }
+        activePartDInput = input;
+        input.classList.add('partd-active-target');
+      });
+
+      // Advance to next empty text input in the APA form
+      const advanceToNextInput = (currentId) => {
+        const currentIdx = partDInputOrder.indexOf(currentId);
+        for (let j = currentIdx + 1; j < partDInputOrder.length; j++) {
+          const nextEl = $(partDInputOrder[j]);
+          if (nextEl && !nextEl.value) {
+            nextEl.focus();
+            return;
+          }
+        }
+        // If no empty fields after current, try wrapping around
+        for (let j = 0; j < currentIdx; j++) {
+          const nextEl = $(partDInputOrder[j]);
+          if (nextEl && !nextEl.value) {
+            nextEl.focus();
+            return;
+          }
+        }
+        // All filled — clear active highlight
+        if (activePartDInput) {
+          activePartDInput.classList.remove('partd-active-target');
+          activePartDInput = null;
+        }
+      };
+
+      // Delegated click handler for table cells
+      const handleTableCellClick = (e) => {
+        if (!activePartDInput) return;
+        const cell = e.target.closest('td.numeric');
+        if (!cell) return;
+        const cellText = cell.textContent.trim();
+        if (!cellText || cellText === '--') return;
+
+        // Prevent focus loss on mobile
+        e.preventDefault();
+
+        // Process value based on target field
+        let processedValue = cellText;
+        const targetId = activePartDInput.id;
+        const numVal = parseFloat(cellText);
+
+        if (!isNaN(numVal)) {
+          if (targetId === 'partd-t') {
+            // t-value: always use absolute value, round to hundredths
+            processedValue = Math.abs(numVal).toFixed(2);
+          } else if (targetId === 'partd-p') {
+            // p-value: round to hundredths, use leading dot format
+            const rounded = Math.abs(numVal).toFixed(2);
+            processedValue = rounded.startsWith('0') ? rounded.substring(1) : rounded;
+          } else if (targetId === 'partd-df') {
+            // df: round to whole number
+            processedValue = Math.round(numVal).toString();
+          } else {
+            // M, SD: round to hundredths
+            processedValue = numVal.toFixed(2);
+          }
+        }
+
+        // Copy value to active input
+        activePartDInput.value = processedValue;
+
+        // Trigger input event so any watchers notice the change
+        activePartDInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+        // Advance to next empty input
+        const currentId = activePartDInput.id;
+        advanceToNextInput(currentId);
+      };
+
+      // Attach to static accordion section elements (always in DOM, events bubble up)
+      const attachTableClickHandler = (sectionId) => {
+        const section = $(sectionId);
+        if (!section) return;
+        section.addEventListener('mousedown', (e) => {
+          if (activePartDInput && e.target.closest('td.numeric')) {
+            e.preventDefault(); // Prevent input blur
+          }
+        });
+        section.addEventListener('click', handleTableCellClick);
+      };
+
+      attachTableClickHandler('group-stats-accordion');
+      attachTableClickHandler('independent-test-accordion');
+
+      // Error message (above submit button, hidden)
+      const submitErrorMsg = createElement('p', {
+        id: 'partd-submit-error',
+        style: 'margin-top: 1.5em; font-weight: 600; color: #C9A54E; display: none'
+      });
+      apaWrapper.appendChild(submitErrorMsg);
+
+      // Submit Responses button (right-justified, 2 blank lines below APA)
+      const submitDiv = createElement('div', { style: 'margin-top: 1.5em; text-align: right' });
+      const submitDBtn = createElement('button', {
+        type: 'button', className: 'btn btn-primary',
+        id: 'partd-submit-btn'
+      }, 'Submit Responses');
+
+      submitDBtn.addEventListener('click', () => {
+        const idx = state.partCD.partD.activeScenario;
+        if (idx === null) {
+          submitErrorMsg.textContent = 'First, click a scenario button to load data.';
+          show(submitErrorMsg);
+          return;
+        }
+        const scen = state.partCD.partD.scenarios[idx];
+        if (!scen || !scen._loadedScenario) return;
+
+        savePartDInputs(idx);
+        const inputs = {};
+        partDFields.numeric.forEach(f => { inputs[f] = ($(`partd-${f}`) || {}).value || ''; });
+        partDFields.dropdowns.forEach(f => { inputs[f] = ($(`partd-${f}`) || {}).value || ''; });
+        const result = checkFullGameAnswers(inputs, scen._loadedScenario);
+
+        if (result.isCorrect) {
+          // Mark complete
+          if (idx === 0) state.partCD.partD.scenario1Complete = true;
+          else state.partCD.partD.scenario2Complete = true;
+
+          // Clear errors
+          document.querySelectorAll('#part-d-response .input-error').forEach(el => el.classList.remove('input-error'));
+          hide(submitErrorMsg);
+
+          // Replace scenario button with completed label
+          const scenRow = $(`partd-scenario-row-${idx}`);
+          const scenBtn = $(`partd-scenario-btn-${idx}`);
+          if (scenRow && scenBtn) {
+            scenBtn.style.display = 'none';
+            // Remove any existing completed label first
+            const existing = scenRow.querySelector(`#partd-completed-${idx}`);
+            if (!existing) {
+              const completedLabel = createElement('span', {
+                id: `partd-completed-${idx}`,
+                style: 'font-weight: 600; color: #4ade80; padding: 0.5em 0'
+              }, `Scenario ${idx + 1} Completed`);
+              scenRow.appendChild(completedLabel);
+            }
+          }
+
+          // Check if both complete
+          if (state.partCD.partD.scenario1Complete && state.partCD.partD.scenario2Complete) {
+            setTUPartComplete('partD');
+            const codeSection = $('partd-completion-section');
+            if (codeSection) show(codeSection);
+            state.partCD.completionCodeVisible = true;
+            const playAgainBtn = $('partd-play-again');
+            if (playAgainBtn) show(playAgainBtn);
+          }
+        } else {
+          // Highlight errors in gold
+          document.querySelectorAll('#part-d-response .input-error').forEach(el => el.classList.remove('input-error'));
+          result.errorFields.forEach(fieldName => {
+            const el = $(`partd-${fieldName}`);
+            if (el) el.classList.add('input-error');
+          });
+          submitErrorMsg.textContent = `There ${result.errorFields.length === 1 ? 'is' : 'are'} ${result.errorFields.length} error${result.errorFields.length === 1 ? '' : 's'} in the write-up. Fix ${result.errorFields.length === 1 ? 'it' : 'them'} and then submit your responses again.`;
+          show(submitErrorMsg);
+        }
+      });
+
+      submitDiv.appendChild(submitDBtn);
+      apaWrapper.appendChild(submitDiv);
+      partDResp.appendChild(apaWrapper);
+
+      // ── Build scenario selector (in external div between accordions and response) ──
+      const scenSelector = $(SECTIONS.GAME.PARTD_SCENARIO_SELECTOR);
+      if (scenSelector) {
+        clearChildren(scenSelector);
+
+        const selectorLabel = createElement('span', { style: 'font-weight: 600' });
+        selectorLabel.textContent = 'Select a Scenario:\u00A0\u00A0';
+        scenSelector.appendChild(selectorLabel);
+
+        for (let i = 0; i < 2; i++) {
+          const btnWrapper = createElement('span', {
+            id: `partd-scenario-row-${i}`,
+            style: 'display: inline-flex; align-items: center; gap: 0.5em'
+          });
+          const scenBtn = createElement('button', {
+            type: 'button', className: 'btn btn-secondary',
+            id: `partd-scenario-btn-${i}`,
+            style: 'min-width: 9em; text-align: center'
+          }, `View Scenario ${i + 1}`);
+
+          scenBtn.addEventListener('click', () => {
+            const prevIdx = state.partCD.partD.activeScenario;
+            if (prevIdx !== null && prevIdx !== i) savePartDInputs(prevIdx);
+            const scen = state.partCD.partD.scenarios[i];
+            if (!scen) return;
+            const scenarioObj = getScenarioByPValue(scen.slider, 30);
+            scen._loadedScenario = scenarioObj;
+            state.partCD.partD.activeScenario = i;
+            loadScenarioIntoDisplays(scenarioObj);
+            openDataAccordions();
+            restorePartDInputs(i);
+            document.querySelectorAll('#part-d-response .input-error').forEach(el => el.classList.remove('input-error'));
+            hide(submitErrorMsg);
+            // Auto-focus Treatment M field for click-to-fill
+            requestAnimationFrame(() => {
+              const treatM = $('partd-treatmentM');
+              if (treatM) treatM.focus();
+            });
+          });
+
+          btnWrapper.appendChild(scenBtn);
+          scenSelector.appendChild(btnWrapper);
+        }
+
+        // Play Again button (hidden until both scenarios complete)
+        const playAgainBtn = createElement('button', {
+          type: 'button', className: 'btn btn-primary',
+          id: 'partd-play-again',
+          style: 'display: none'
+        }, 'Play Again');
+        playAgainBtn.addEventListener('click', () => {
+          state.partCD.partD.scenarios = generatePartDScenarios();
+          state.partCD.partD.activeScenario = null;
+          state.partCD.partD.scenario1Complete = false;
+          state.partCD.partD.scenario2Complete = false;
+          state.partCD.partD.savedInputs = { 0: {}, 1: {} };
+          for (let i = 0; i < 2; i++) {
+            const btn = $(`partd-scenario-btn-${i}`);
+            const row = $(`partd-scenario-row-${i}`);
+            if (btn) { btn.style.display = ''; btn.textContent = `View Scenario ${i + 1}`; }
+            if (row) { const cl = row.querySelector(`#partd-completed-${i}`); if (cl) cl.remove(); }
+          }
+          partDFields.numeric.forEach(f => { const el = $(`partd-${f}`); if (el) el.value = ''; });
+          partDFields.dropdowns.forEach(f => { const el = $(`partd-${f}`); if (el) el.value = ''; });
+          document.querySelectorAll('#part-d-response .input-error').forEach(el => el.classList.remove('input-error'));
+          hide(submitErrorMsg);
+          hide(playAgainBtn);
+          const fc = getFigContainer(); const gc = getGSContainer(); const ic = getISContainer();
+          if (fc) renderEmptyBarGraph(fc);
+          if (gc) { clearChildren(gc); renderEmptyGroupStatsTable(gc); }
+          if (ic) { clearChildren(ic); renderEmptyIndependentTable(ic); }
+        });
+        scenSelector.appendChild(playAgainBtn);
+      }
+
+      // Hints
+      const hintsDiv = createElement('div', { style: 'margin-top: var(--space-lg)' });
+      hintsDiv.innerHTML = `
+        <p style="font-weight: 600; margin-bottom: 0.25em">Hints:</p>
+        <ul style="margin: 0; padding-left: 1.25em; line-height: 1.6">
+          <li>Select a scenario above (e.g., \u2018View Scenario 1\u2019)</li>
+          <li>Click a field in the write-up, then click the corresponding cell in the statistics table to copy the value</li>
+          <li>Click \u2018Submit Responses\u2019 when done \u2014 errors will be highlighted</li>
+          <li>After completing Scenario 1, switch to \u2018View Scenario 2\u2019</li>
+          <li>Report degrees of freedom as a whole number; round all other values to the hundredths place</li>
+        </ul>
+      `;
+      partDResp.appendChild(hintsDiv);
+
+      // Back to Part C
+      const backBtn = createElement('button', {
+        type: 'button', className: 'btn btn-secondary',
+        id: 'partd-back-btn', style: 'margin-top: var(--space-md)'
+      }, 'Back to Part C');
+      backBtn.addEventListener('click', () => {
+        const idx = state.partCD.partD.activeScenario;
+        if (idx !== null) savePartDInputs(idx);
+        setPartCDSubMode('C');
+      });
+      partDResp.appendChild(backBtn);
+
+      // Completion Code Section
+      const completionSection = createElement('div', {
+        id: 'partd-completion-section',
+        style: 'margin-top: var(--space-lg); border-top: 1px solid var(--color-border); padding-top: var(--space-md)'
+      });
+      hide(completionSection);
+      const codeHeading = createElement('h4', { style: 'font-weight: 600; margin-bottom: var(--space-sm)' });
+      codeHeading.textContent = 'Completion Code (Optional)';
+      completionSection.appendChild(codeHeading);
+      const codeDesc = createElement('p', { style: 'margin-bottom: var(--space-sm)' });
+      codeDesc.textContent = 'Enter a four digit number to generate your completion code.';
+      completionSection.appendChild(codeDesc);
+      const codeInputRow = createElement('div', { style: 'display: flex; align-items: center; gap: 0.5em; flex-wrap: wrap' });
+      const codeInput = createElement('input', { type: 'text', id: 'partd-code-input', className: 'form-input form-input-narrow', maxLength: '4', inputMode: 'numeric', placeholder: '0000', style: 'width: 5em' });
+      codeInputRow.appendChild(codeInput);
+      const codeOkBtn = createElement('button', { type: 'button', className: 'btn btn-primary', id: 'partd-code-ok' }, 'OK');
+      const codeResult = createElement('span', { id: 'partd-code-result', style: 'font-weight: 600; margin-left: 0.5em; display: none' });
+      codeOkBtn.addEventListener('click', () => {
+        const val = codeInput.value.trim();
+        if (!/^\d{4}$/.test(val)) { codeResult.textContent = 'Please enter exactly 4 digits.'; codeResult.style.color = '#ff6b6b'; show(codeResult); return; }
+        const code = Math.round(parseInt(val, 10) / 10 + 7);
+        codeResult.textContent = `Completion Code: ${code}`;
+        codeResult.style.color = '#4ade80';
+        show(codeResult);
+      });
+      codeInputRow.appendChild(codeOkBtn);
+      codeInputRow.appendChild(codeResult);
+      completionSection.appendChild(codeInputRow);
+      if (state.partCD.completionCodeVisible) show(completionSection);
+      partDResp.appendChild(completionSection);
+    }
+
+    if (partDResp) hide(partDResp);
   };
 
   const initAccordions = () => {
@@ -6492,14 +7398,21 @@ details.pvalue-frequency-statement[open] > summary::before {
 
     const visualizationContainer = $('visualization-accordion');
     if (visualizationContainer) {
+      const vizWrapper = createElement('div', {});
+      const vizDesc = createElement('p', { style: 'margin-bottom: var(--space-sm); padding: 0 var(--space-sm); font-size: 0.95rem' });
+      vizDesc.textContent = 'The Null Hypothesis histogram provides a visual interpretation of the results \u2014 where the probability of the outcome (or one more extreme) is purely the outcome of random selection and random assignment. The Sampling Distribution histogram displays the t-test value against the background of the t-test distribution (with the t-critical values displayed).';
+      vizWrapper.appendChild(vizDesc);
+
       const vizContentDiv = createElement('div', {
         id: 'visualization-histograms-container',
         className: 'visualization-histograms-container'
       });
+      vizWrapper.appendChild(vizContentDiv);
+
       accordions.visualization = new Accordion({
         id: 'visualization',
         label: CONFIG.LABELS.ACCORDION_VISUALIZATION,
-        content: vizContentDiv,
+        content: vizWrapper,
         defaultOpen: false,
         container: visualizationContainer,
         onToggle: (isOpen) => {
@@ -6545,15 +7458,32 @@ details.pvalue-frequency-statement[open] > summary::before {
       tuIntro.textContent = 'In this section you will review the basics of hypothesis testing, identify the four possible decision outcomes (correct rejection, correct retention, Type I Error, and Type II Error), apply the Hypothesis Decision Rule, and practice writing up results in APA style.';
       tuContent.appendChild(tuIntro);
 
-      // Part A header
+      // Helper: update golden border progression
+      const updateTUHighlight = () => {
+        const comp = getTUCompletion();
+        const secA = $('tu-section-a');
+        const secB = $('tu-section-b');
+        const secCD = $('tu-section-cd');
+        if (secA) secA.classList.remove('tu-highlight');
+        if (secB) secB.classList.remove('tu-highlight');
+        if (secCD) secCD.classList.remove('tu-highlight');
+        if (!comp.partA) { if (secA) secA.classList.add('tu-highlight'); }
+        else if (!comp.partB) { if (secB) secB.classList.add('tu-highlight'); }
+        else if (!comp.partC || !comp.partD) { if (secCD) secCD.classList.add('tu-highlight'); }
+      };
+
+      // ══════════════════════════════
+      // PART A SECTION
+      // ══════════════════════════════
+      const partASection = createElement('div', { id: 'tu-section-a', className: 'tu-section' });
+
       const partAHeader = createElement('h4', { className: 'table-title', style: 'text-align:left; margin-bottom:0.5em' });
       partAHeader.textContent = 'Part A';
-      tuContent.appendChild(partAHeader);
+      partASection.appendChild(partAHeader);
 
-      // Part A subtitle
       const partASubtitle = createElement('p', { style: 'margin-bottom: 1em' });
       partASubtitle.textContent = 'This is a review of the basics of hypothesis testing.';
-      tuContent.appendChild(partASubtitle);
+      partASection.appendChild(partASubtitle);
 
       // Quiz questions data
       const partAQuestions = [
@@ -6591,7 +7521,7 @@ details.pvalue-frequency-statement[open] > summary::before {
 
       // Build each question
       partAQuestions.forEach(q => {
-        const qDiv = createElement('div', { style: 'margin-bottom: 0.75em' });
+        const qDiv = createElement('div', { id: `${q.id}-row`, style: 'margin-bottom: 0.75em' });
         const label = createElement('label', { for: q.id, style: 'margin-right: 0.5em' });
         label.textContent = q.text;
         qDiv.appendChild(label);
@@ -6607,7 +7537,7 @@ details.pvalue-frequency-statement[open] > summary::before {
           select.appendChild(option);
         });
         qDiv.appendChild(select);
-        tuContent.appendChild(qDiv);
+        partASection.appendChild(qDiv);
       });
 
       // Part A score line (hidden until submit)
@@ -6615,9 +7545,9 @@ details.pvalue-frequency-statement[open] > summary::before {
         id: 'tu-part-a-score',
         style: 'margin-top: 1em; font-weight: 600; display: none'
       });
-      tuContent.appendChild(partAScore);
+      partASection.appendChild(partAScore);
 
-      // Submit button
+      // Part A Submit button
       const submitDiv = createElement('div', { style: 'margin-top: 1.25em' });
       const submitBtn = createElement('button', {
         type: 'button',
@@ -6633,20 +7563,39 @@ details.pvalue-frequency-statement[open] > summary::before {
         });
         partAScore.textContent = `You have ${correct} of the 5 answers in Part A correct.`;
         partAScore.style.display = 'block';
+
+        // Lock in on perfect score
+        if (correct === 5) {
+          setTUPartComplete('partA');
+          partAQuestions.forEach(q => {
+            const row = $(`${q.id}-row`);
+            const sel = $(q.id);
+            if (row && sel) {
+              sel.style.display = 'none';
+              const lockedLabel = createElement('span', { style: 'font-weight: 600' });
+              lockedLabel.textContent = q.correct;
+              row.appendChild(lockedLabel);
+            }
+          });
+          updateTUHighlight();
+        }
       });
 
       submitDiv.appendChild(submitBtn);
-      tuContent.appendChild(submitDiv);
+      partASection.appendChild(submitDiv);
+      tuContent.appendChild(partASection);
 
-      // ── Part B ──
-      const partBSection = createElement('div', { id: 'tu-part-b-section', style: 'margin-top: 2em' });
+      // ══════════════════════════════
+      // PART B SECTION
+      // ══════════════════════════════
+      const partBSection = createElement('div', { id: 'tu-section-b', className: 'tu-section' });
 
       const partBHeader = createElement('h4', { className: 'table-title', style: 'text-align:left; margin-bottom:0.5em' });
       partBHeader.textContent = 'Part B';
       partBSection.appendChild(partBHeader);
 
       const partBIntro = createElement('p', { style: 'margin-bottom: 1em' });
-      partBIntro.textContent = 'Below are four scenario buttons, numbered 1\u20134. Click on a scenario button, scroll up to investigate the scenario, and then record your response to the immediate right of the scenario button. If you accidentally change the scenario using the scenario controls, then just scroll down and click the scenario button to display it again. See how well you can identify each of the scenarios with the least amount of clues. If you get stumped, the answer can be found in the \u2018Interpreting the p-value (two-tailed test)\u2019 section.';
+      partBIntro.textContent = 'Below are four scenario buttons, numbered 1\u20134. Click on a scenario button, scroll up to investigate the scenario. The \u2018Reality\u2019 section conveys whether the treatment truly has an effect \u2014 something which must be discovered by the researcher. The \u2018Null Hypothesis\u2019 histogram conveys the p-value for getting these results (or those more extreme) due entirely to random selection and random assignment. After clicking on the button and reviewing the scenario, record your response to the right of the scenario button. See how well you can identify each of the scenarios with the least amount of clues. If you get stumped, the answer can be found in the \u2018Interpreting the p-value (two-tailed test)\u2019 section.';
       partBSection.appendChild(partBIntro);
 
       // Generate initial scenarios
@@ -6662,14 +7611,18 @@ details.pvalue-frequency-statement[open] > summary::before {
 
       // Build 4 scenario rows
       for (let i = 0; i < 4; i++) {
-        const rowDiv = createElement('div', { style: 'margin-bottom: 0.75em; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5em' });
+        const rowDiv = createElement('div', { id: `tu-b-row-${i + 1}`, style: 'margin-bottom: 0.75em; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5em' });
+
+        const pVal = partBScenarios[i].pValue;
+        const pDisplay = pVal < 0.001 ? '< .001' : pVal.toFixed(3).replace(/^0/, '').replace(/0$/, '');
 
         const scenBtn = createElement('button', {
           type: 'button',
           className: 'btn btn-secondary',
           id: `tu-scenario-btn-${i + 1}`,
-          style: 'white-space: nowrap'
-        }, `Scenario ${i + 1}`);
+          style: 'display: inline-block; padding-top: 0.5em; padding-bottom: 0.5em; line-height: 1.4; text-align: center; min-width: 7em'
+        });
+        scenBtn.innerHTML = `Scenario ${i + 1}<br><span style="font-size: 0.85em"><em>p</em> = ${pDisplay}</span>`;
 
         scenBtn.addEventListener('click', () => {
           if (window._loadPartBScenario) window._loadPartBScenario(i);
@@ -6716,10 +7669,26 @@ details.pvalue-frequency-statement[open] > summary::before {
         if (isPlayAgain) {
           // Generate new scenarios
           partBScenarios = generatePartBScenarios();
-          // Reset dropdowns
+          // Reset: restore dropdowns from locked labels, update button p-values
           for (let i = 0; i < 4; i++) {
+            const row = $(`tu-b-row-${i + 1}`);
             const sel = $(`tu-b-q${i + 1}`);
-            if (sel) sel.value = '';
+            if (sel) {
+              sel.value = '';
+              sel.style.display = '';
+            }
+            // Remove any locked labels
+            if (row) {
+              const locked = row.querySelector('.tu-locked-answer');
+              if (locked) locked.remove();
+            }
+            // Update button label with new p-value
+            const btn = $(`tu-scenario-btn-${i + 1}`);
+            if (btn) {
+              const pVal = partBScenarios[i].pValue;
+              const pDisplay = pVal < 0.001 ? '< .001' : pVal.toFixed(3).replace(/^0/, '').replace(/0$/, '');
+              btn.innerHTML = `Scenario ${i + 1}<br><span style="font-size: 0.85em"><em>p</em> = ${pDisplay}</span>`;
+            }
           }
           submitBBtn.textContent = 'Submit Your Answers';
           partBScore.textContent = 'A new set of Scenarios 1\u20134 are ready for you to evaluate.';
@@ -6737,27 +7706,57 @@ details.pvalue-frequency-statement[open] > summary::before {
         partBScore.style.display = 'block';
 
         if (correct === 4) {
+          // Lock in correct answers
+          setTUPartComplete('partB');
+          for (let i = 0; i < 4; i++) {
+            const row = $(`tu-b-row-${i + 1}`);
+            const sel = $(`tu-b-q${i + 1}`);
+            if (row && sel) {
+              sel.style.display = 'none';
+              const lockedLabel = createElement('span', { className: 'tu-locked-answer', style: 'font-weight: 600' });
+              lockedLabel.textContent = partBScenarios[i].answer;
+              row.appendChild(lockedLabel);
+            }
+          }
           submitBBtn.textContent = 'Play Again';
+          updateTUHighlight();
+
+          // Revert golden borders on Reality and Visualization accordions
+          const vizAccEl = document.getElementById('accordion-visualization');
+          const popAccEl = document.getElementById('accordion-population');
+          if (vizAccEl) vizAccEl.classList.remove('tour-highlight-border');
+          if (popAccEl) popAccEl.classList.remove('tour-highlight-border');
+
+          // Open the Interpreting p-value accordion
+          const pvalDetails = document.getElementById('pvalue-frequency-details');
+          if (pvalDetails) pvalDetails.open = true;
         }
       });
 
       submitBDiv.appendChild(submitBBtn);
       partBSection.appendChild(submitBDiv);
-
       tuContent.appendChild(partBSection);
 
-      // Play Game section (moved from More Options)
-      const playGameDiv = createElement('div', { id: 'play-game-button', className: 'option-item play-game-option', style: 'margin-top: 1.5em' });
+      // ══════════════════════════════
+      // PARTS C & D SECTION
+      // ══════════════════════════════
+      const partCDSection = createElement('div', { id: 'tu-section-cd', className: 'tu-section' });
+
+      const partCDHeader = createElement('h4', { className: 'table-title', style: 'text-align:left; margin-bottom:0.5em' });
+      partCDHeader.textContent = 'Parts C & D';
+      partCDSection.appendChild(partCDHeader);
+
+      const playGameDiv = createElement('div', { id: 'play-game-button', className: 'option-item play-game-option' });
 
       const playBtn = createElement('button', {
         type: 'button',
-        className: 'btn btn-primary btn-large',
+        className: 'btn btn-primary',
         id: 'btn-play-game'
-      }, 'Play the Hypothesis Decision Rule & Write-up Game');
+      }, 'View Parts C & D: Hypothesis Testing and Write-up');
       playGameDiv.appendChild(playBtn);
 
       const playDesc = createElement('p', { className: 'play-game-description' },
-        "Clicking the 'Play the Hypothesis Decision Rule & Write-up Game' button switches this app into 'Game Mode'. Develop your expertise, exploring several independent samples t-test scenarios, where you:");
+        "Clicking the 'View Parts C & D: Hypothesis Testing and Write-up' button switches this app fully into 'Game Mode'. Develop your expertise, exploring several independent samples t-test scenarios, where you:");
       playGameDiv.appendChild(playDesc);
 
       const playList = createElement('ul', { className: 'play-game-list' });
@@ -6766,14 +7765,24 @@ details.pvalue-frequency-statement[open] > summary::before {
       playList.appendChild(createElement('li', {}, 'Develop expertise writing up results APA style'));
       playGameDiv.appendChild(playList);
 
-      tuContent.appendChild(playGameDiv);
+      partCDSection.appendChild(playGameDiv);
+      tuContent.appendChild(partCDSection);
 
       accordions.testUnderstanding = new Accordion({
         id: 'testUnderstanding',
         label: CONFIG.LABELS.ACCORDION_TEST_UNDERSTANDING,
         content: tuContent,
         defaultOpen: false,
-        container: testUnderstandingContainer
+        container: testUnderstandingContainer,
+        onToggle: (isOpen) => {
+          if (isOpen && getTourPhase() !== 'complete') {
+            // Phase 5 or emergency exit: end tour
+            endTour();
+          }
+          if (isOpen) {
+            updateTUHighlight();
+          }
+        }
       });
     }
 
@@ -6793,7 +7802,17 @@ details.pvalue-frequency-statement[open] > summary::before {
         label: CONFIG.LABELS.ACCORDION_RESULTS,
         content: contentDiv,
         defaultOpen: false,
-        container: resultsContainer
+        container: resultsContainer,
+        onToggle: (isOpen) => {
+          if (isOpen && getTourPhase() === 'results') {
+            // Phase 4: Communicating Results opened → revert its highlight, highlight Test Your Understanding
+            setTourPhase('understanding');
+            const resAccEl = document.getElementById('accordion-resultsExplanation');
+            if (resAccEl) resAccEl.classList.remove('tour-highlight-border');
+            const tuAccEl = document.getElementById('accordion-testUnderstanding');
+            if (tuAccEl) tuAccEl.classList.add('tour-highlight-border');
+          }
+        }
       });
     }
 
@@ -6837,17 +7856,6 @@ details.pvalue-frequency-statement[open] > summary::before {
       });
     }
 
-    const instructionsContainer = $('instructions-accordion');
-    if (instructionsContainer) {
-      accordions.instructions = new Accordion({
-        id: 'instructions',
-        label: CONFIG.LABELS.ACCORDION_INSTRUCTIONS,
-        content: getInstructionsContent(),
-        defaultOpen: true,
-        container: instructionsContainer
-      });
-    }
-
     const appInfoContainer = $('app-info-accordion');
     if (appInfoContainer) {
       accordions.appInfo = new Accordion({
@@ -6855,7 +7863,12 @@ details.pvalue-frequency-statement[open] > summary::before {
         label: CONFIG.LABELS.ACCORDION_APP_INFO,
         content: getAppInfoContent(),
         defaultOpen: false,
-        container: appInfoContainer
+        container: appInfoContainer,
+        onToggle: (isOpen) => {
+          if (isOpen && getTourPhase() !== 'complete') {
+            endTour();
+          }
+        }
       });
     }
   };
@@ -6868,6 +7881,7 @@ details.pvalue-frequency-statement[open] > summary::before {
       // Register callback for user-initiated slider movement
       sliderModule.onPositionChange((position) => {
         setActiveTourStep(null); // Manual control clears tour prompt
+        handleManualControlDuringTour();
         const effectSize = getTreatmentEffect();
         const n = getSampleSize();
 
@@ -7096,6 +8110,7 @@ details.pvalue-frequency-statement[open] > summary::before {
     if (newEffect === previousEffect) return;
 
     setActiveTourStep(null); // Manual control clears tour prompt
+    handleManualControlDuringTour();
     const n = getSampleSize();
 
     console.log(`🔄 Treatment change: ${previousEffect} → ${newEffect}`);
@@ -7182,72 +8197,15 @@ details.pvalue-frequency-statement[open] > summary::before {
     // Play Game button
     const playGameButton = $('btn-play-game');
     if (playGameButton) {
-      playGameButton.addEventListener('click', () => switchMode('practice'));
+      playGameButton.addEventListener('click', () => switchMode('partcd'));
     }
 
-    // Mode selector radios
-    const modeRadios = document.querySelectorAll('input[name="mode-selector"]');
-    modeRadios.forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        switchMode(e.target.value);
+    // Exit Parts C & D button
+    const exitButton = $('exit-parts-cd');
+    if (exitButton) {
+      exitButton.addEventListener('click', () => {
+        switchMode('tutorial');
       });
-    });
-
-    // Submit button
-    const submitButton = $('submit-answer-button');
-    if (submitButton) {
-      submitButton.addEventListener('click', handleSubmitAnswer);
-    }
-
-    // Next scenario button
-    const nextButton = $('next-scenario-button');
-    if (nextButton) {
-      nextButton.addEventListener('click', handleNextScenario);
-    }
-
-    // Get completion code button
-    const getCodeButton = $('get-completion-code-button');
-    if (getCodeButton) {
-      getCodeButton.addEventListener('click', handleGetCompletionCode);
-    }
-
-    // Completion code inputs
-    const nameInput = $('completion-name-input');
-    if (nameInput) {
-      nameInput.addEventListener('input', (e) => {
-        const sanitized = sanitizeName(e.target.value);
-        if (sanitized !== e.target.value) e.target.value = sanitized;
-        setCompletionInput('name', sanitized);
-        updateOkButtonState();
-      });
-    }
-
-    const codeInput = $('completion-code-input');
-    if (codeInput) {
-      codeInput.addEventListener('input', (e) => {
-        const sanitized = sanitizeUserCode(e.target.value);
-        if (sanitized !== e.target.value) e.target.value = sanitized;
-        setCompletionInput('userCode', sanitized);
-        updateOkButtonState();
-      });
-      codeInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const inputs = getCompletionInputs();
-          if (canGenerateCode(inputs.name, inputs.userCode)) {
-            handleCompletionOk();
-          }
-        }
-      });
-    }
-
-    const okButton = $('completion-ok-button');
-    if (okButton) {
-      okButton.addEventListener('click', handleCompletionOk);
-    }
-
-    const cancelButton = $('completion-cancel-button');
-    if (cancelButton) {
-      cancelButton.addEventListener('click', handleCompletionCancel);
     }
 
     // Treatment effect radios
@@ -7261,6 +8219,7 @@ details.pvalue-frequency-statement[open] > summary::before {
     if (randomButton) {
       randomButton.addEventListener('click', () => {
         setActiveTourStep(null); // Manual control clears tour prompt
+        handleManualControlDuringTour();
         const effectSize = getTreatmentEffect();
         const n = getSampleSize();
         const randomPosition = Math.round((Math.random() * 0.99 + 0.01) * 100) / 100;
@@ -7292,6 +8251,7 @@ details.pvalue-frequency-statement[open] > summary::before {
       sampleSizeDropdown.addEventListener('change', (e) => {
         const newSize = parseInt(e.target.value, 10);
         setActiveTourStep(null); // Manual control clears tour prompt
+        handleManualControlDuringTour();
         setSampleSize(newSize);
 
         const effectSize = getTreatmentEffect();
@@ -7329,6 +8289,10 @@ details.pvalue-frequency-statement[open] > summary::before {
         const flagMap = { high: 'highClicked', low: 'lowClicked', type1: 'type1Clicked', type2: 'type2Clicked' };
         if (flagMap[tourStep]) setTourFlag(flagMap[tourStep]);
 
+        // Revert Getting Started border on first scenario link click
+        const gsBox = $('getting-started-details');
+        if (gsBox) gsBox.classList.add('tour-complete');
+
         // Progressive reveal: show Type I/II in Getting Started once both Phase 1 done
         const ts = getTourState();
         if (ts.highClicked && ts.lowClicked) {
@@ -7336,6 +8300,21 @@ details.pvalue-frequency-statement[open] > summary::before {
           const t2Item = $('preset-type2-item');
           if (t1Item) t1Item.style.display = '';
           if (t2Item) t2Item.style.display = '';
+          const followup = $('getting-started-followup');
+          if (followup) followup.textContent = 'After checking out these scenarios, scroll down to the \u2018Scenario Controls\u2019, where you can move the p-value sliding bar (to see corresponding scenarios), select a treatment effect level (none, small, medium, or large), and adjust the sample size.';
+        }
+
+        // Phase 2: All four scenarios explored → highlight controls + results
+        if (ts.highClicked && ts.lowClicked && ts.type1Clicked && ts.type2Clicked && getTourPhase() === 'scenarios') {
+          setTourPhase('controls');
+          // Open Scenario Controls and highlight it + Communicating Results
+          setAccordionState('scenarioControls', true);
+          requestAnimationFrame(() => {
+            const scAccEl = document.getElementById('accordion-scenarioControls');
+            const resAccEl = document.getElementById('accordion-resultsExplanation');
+            if (scAccEl) scAccEl.classList.add('tour-highlight-border');
+            if (resAccEl) resAccEl.classList.add('tour-highlight-border');
+          });
         }
       }
 
@@ -7350,7 +8329,9 @@ details.pvalue-frequency-statement[open] > summary::before {
 
       // 5. Open key accordions via state (keeps state + DOM in sync)
       setAccordionState('visualization', true);
-      setAccordionState('scenarioControls', true);
+      if (!tourStep) {
+        setAccordionState('scenarioControls', true);
+      }
       // Type I/II: also open population so user sees "The Reality"
       if (tourStep === 'type1' || tourStep === 'type2') {
         setAccordionState('population', true);
@@ -7409,7 +8390,40 @@ details.pvalue-frequency-statement[open] > summary::before {
     window._loadPartBScenario = (index) => {
       const s = partBScenarios[index];
       if (!s) return;
+
+      // Open visualization + population
+      setAccordionState('visualization', true);
+      setAccordionState('population', true);
+
       configurePreset(s.effect, s.n, s.slider);
+
+      // Close scenarioControls + results AFTER configurePreset (which opens scenarioControls)
+      setAccordionState('scenarioControls', false);
+      setAccordionState('resultsExplanation', false);
+
+      // Add golden borders and close Interpreting p-value after updateTutorialHistograms has run
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const vizAccEl = document.getElementById('accordion-visualization');
+          const popAccEl = document.getElementById('accordion-population');
+          if (vizAccEl) vizAccEl.classList.add('tour-highlight-border');
+          if (popAccEl) popAccEl.classList.add('tour-highlight-border');
+
+          // Close the Interpreting p-value accordion (contains the answer)
+          const pvalDetails = document.getElementById('pvalue-frequency-details');
+          if (pvalDetails) pvalDetails.open = false;
+
+          // Scroll to The Reality (population) accordion — 4x rAF to fire after configurePreset's scroll
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              if (popAccEl) {
+                const top = popAccEl.getBoundingClientRect().top + window.scrollY + 50;
+                window.scrollTo({ top, behavior: 'smooth' });
+              }
+            });
+          });
+        });
+      });
     };
 
     const presetHigh = $('preset-p-high');
